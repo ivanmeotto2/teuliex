@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-margin-start">
+      <ion-icon size="large" name="arrow-back-outline" [routerLink]="['/private/home']" routerDirection="back">
+      </ion-icon>
+      <ion-title>{{news.title | uppercase}}</ion-title>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <img [src]="news.imgUrl" />
+    </ion-row>
+
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <h1>{{news.title | uppercase}}</h1>
+    </ion-row>
+    <ion-row class="ion-margin-top ion-justify-content-center ">
+      <p class="ion-text-justify">{{news.content}}</p>
+
+    </ion-row>
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <ion-chip *ngFor="let tag of news.tags" outline [color]="tag.color">{{tag.tagName}}</ion-chip>
+    </ion-row>
+  </ion-grid>
+</ion-content>

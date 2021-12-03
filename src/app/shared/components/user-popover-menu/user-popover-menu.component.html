@@ -1,0 +1,9 @@
+<ion-item (click)="handleNavigation(['private','profile'])">
+  <ion-title>{{user.nome + ' ' + user.cognome | uppercase}}</ion-title>
+</ion-item>
+<ion-item (click)="handleNavigation(['private','settings'])">
+  <ion-text>Impostazioni</ion-text>
+</ion-item>
+<ion-item (click)="handleNavigation(['auth','login'])">
+  <ion-text>Disconnettiti</ion-text>
+</ion-item>

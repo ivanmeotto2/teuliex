@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <ion-title>Menu</ion-title>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item lines="none" *ngFor="let option of menuOptions" (click)="handleNavigation([option.path], option.name)"
+      [disabled]="!user && option.needsLogin">
+      <ion-icon [name]="option.icon" size="large"></ion-icon>
+      <ion-text class="ion-margin-start">{{option.name}}</ion-text>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-list *ngIf="user">
+    <ion-item lines="none" (click)="handleNavigation(['auth','login'])">
+      <ion-icon name="log-out-outline" size="large"></ion-icon>
+      <ion-text class="ion-margin-start">Logout</ion-text>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item lines="none" (click)="handleNavigation(['/private/profile'], 'Profilo')">
+      <ion-avatar *ngIf="user">
+        <img [src]="user.imgUrl" />
+      </ion-avatar>
+      <ion-text class="ion-margin-start"><b>{{user.nome + ' ' + user.cognome | uppercase}}</b></ion-text>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-footer>

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <ion-icon class="ion-margin-start hamburger" name="menu-outline" size="large" (click)="openSideMenu()"></ion-icon>
+      <ion-title>{{selectedTab}}
+      </ion-title>
+      <div class="button-div" *ngIf="!user">
+        <ion-button fill="outline" color="primary" [routerLink]="['/auth/login']" routerDirection="forward">ACCEDI
+        </ion-button>
+      </div>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-menu side="start" menuId="main-menu" contentId="main-content" type="overlay">
+  <app-side-menu (emitTabName)="setSelectedTab($event)" [user]="user"></app-side-menu>
+</ion-menu>
+<ion-content id="main-content">
+  <ion-tabs #tabs>
+  </ion-tabs>
+</ion-content>

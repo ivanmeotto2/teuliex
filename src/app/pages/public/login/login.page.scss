@@ -1,0 +1,16 @@
+ion-grid {
+  width: 60%;
+  ion-row {
+    ion-item {
+      width: 100%;
+    }
+    ion-button {
+      width: 100%;
+    }
+    ion-text {
+      a {
+        color: white;
+      }
+    }
+  }
+}

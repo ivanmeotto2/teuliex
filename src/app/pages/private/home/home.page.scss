@@ -1,0 +1,46 @@
+.swiper {
+  width: 90%;
+
+  ion-card {
+    max-width: 90%;
+    ion-card-content {
+      p {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        text-align: justify;
+        width: 90%;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      ion-row {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2%;
+      }
+    }
+  }
+}
+
+ion-chip {
+  margin-left: 0;
+  background-color: white;
+  border: 2px solid;
+}
+
+ion-grid {
+  width: 90%;
+}
+
+ion-card {
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+ion-card:hover {
+  transform: scale(1.03);
+  transition: all 0.2s ease-in;
+}

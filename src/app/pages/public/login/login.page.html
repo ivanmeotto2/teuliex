@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-margin-start">
+      <ion-icon size="large" icon="arrow-back-outline" [routerLink]="['/private/home']" routerDirection="back">
+      </ion-icon>
+      <ion-title>Login</ion-title>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-grid class="ion-justify-content-center">
+  <ion-row class="ion-margin-top">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="email"></ion-input>
+    </ion-item>
+  </ion-row>
+  <ion-row class="ion-margin-top">
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+  </ion-row>
+  <ion-row class="ion-margin-top">
+    <ion-button expand="block" color="primary" (click)="login()">Login</ion-button>
+  </ion-row>
+  <ion-row class="ion-margin-top">
+    <ion-button expand="block" color="tertiary" [routerLink]="['/auth/sign-up']">Registrati</ion-button>
+  </ion-row>
+  <ion-row class="ion-margin-top ion-justify-content-center">
+    <ion-text>Hai dimenticato la tua password? <a [routerLink]="['/auth/cambia-password']">Clicca Qui!</a></ion-text>
+  </ion-row>
+</ion-grid>

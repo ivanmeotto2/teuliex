@@ -1,0 +1,86 @@
+.img-div {
+  width: 30% !important;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  img {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .add-photo {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    background-color: grey;
+    padding: 5%;
+    border-radius: 50%;
+  }
+  .delete-photo {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background-color: red;
+    padding: 2px;
+    border-radius: 50%;
+  }
+}
+
+ion-item-group {
+  margin-top: 5%;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  .input-row {
+    ion-item {
+      width: 100%;
+      span {
+        color: red;
+      }
+    }
+  }
+  .button {
+    width: 100%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+}
+
+.autocomplete-div {
+  position: relative;
+  .searchbar-container {
+    padding: 2px;
+  }
+  .places-autocomplete {
+    position: absolute;
+    z-index: 9999;
+    top: 90%;
+    width: 100%;
+    height: 160px;
+    overflow-y: auto;
+    ion-item {
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .autocomplete-div {
+    .places-autocomplete {
+      ion-item {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .autocomplete-div {
+    .places-autocomplete {
+      ion-item {
+        font-size: 12px;
+      }
+    }
+  }
+}

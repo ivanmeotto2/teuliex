@@ -1,0 +1,35 @@
+<ion-content>
+  <ion-row class="ion-margin-top ion-margin-end ion-justify-content-end">
+    <ion-icon size="large" name="close-outline" (click)="closePopover()"></ion-icon>
+  </ion-row>
+  <ion-item-group class="ion-justify-content-center ion-margin-bottom">
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <ion-item>
+        <ion-label position="stacked">Nome e Cognome</ion-label>
+        <ion-input autocomplete="off" [(ngModel)]="filters.name"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row class="ion-margin-top ion-justify-content-center autocomplete-div">
+      <ion-item class="searchbar-container">
+        <ion-label position="stacked">Località</ion-label>
+        <ion-input autocomplete="off" [(ngModel)]="autocomplete.input" (ionChange)="autocompleteAddress()"
+          debounce="1000">
+        </ion-input>
+      </ion-item>
+      <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0">
+        <ion-item *ngFor="let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <ion-item>
+        <ion-label position="stacked">Professione</ion-label>
+        <ion-input autocomplete="off" [(ngModel)]="filters.job"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-button class="ion-margin-top" expand="block">
+      Filtra
+    </ion-button>
+    <ion-row></ion-row>
+  </ion-item-group>
+</ion-content>
