@@ -2,7 +2,7 @@
   width: 90%;
 
   ion-card {
-    max-width: 90%;
+    max-width: 80%;
     ion-card-content {
       p {
         margin-left: auto;
@@ -13,6 +13,7 @@
         width: 90%;
         display: -webkit-box;
         -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
       }

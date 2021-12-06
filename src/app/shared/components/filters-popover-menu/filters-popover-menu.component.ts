@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, Output, EventEmitter, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { LocationService } from '../../services/location.service';
 
@@ -8,15 +8,16 @@ import { LocationService } from '../../services/location.service';
   styleUrls: ['./filters-popover-menu.component.scss'],
 })
 export class FiltersPopoverMenuComponent {
+  @Input() filters: {
+    name?: string;
+    address?: any;
+    job?: string;
+    toFilter?: boolean;
+  };
   GoogleAutocomplete: google.maps.places.AutocompleteService;
   autocomplete: { input: string };
   autocompleteItems: any[];
   addressSelected: boolean = false;
-  filters: {
-    name?: string;
-    address?: any;
-    job?: string;
-  };
 
   constructor(
     private readonly popoverController: PopoverController,
@@ -28,6 +29,7 @@ export class FiltersPopoverMenuComponent {
     this.filters = {
       name: '',
       job: '',
+      address: '',
     };
   }
 
@@ -56,7 +58,15 @@ export class FiltersPopoverMenuComponent {
     this.autocompleteItems = [];
   }
 
-  async closePopover() {
+  checkDisabled() {
+    if (!this.filters.address && !this.filters.job && !this.filters.name) {
+      return true;
+    }
+    return false;
+  }
+
+  async closePopover(value: boolean) {
+    this.filters.toFilter = value;
     await this.popoverController.dismiss();
   }
 }

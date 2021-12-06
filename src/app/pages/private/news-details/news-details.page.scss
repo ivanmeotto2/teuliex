@@ -6,6 +6,14 @@ ion-grid {
     background-color: white;
     border: 2px solid;
   }
+  .content-row {
+    width: 80%;
+    margin: auto;
+  }
+  .img-row {
+    width: 100%;
+    align-items: flex-start;
+  }
 }
 
 h1 {

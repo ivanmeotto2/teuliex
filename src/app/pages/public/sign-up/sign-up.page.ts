@@ -98,18 +98,7 @@ export class SignUpPage implements OnInit {
   }
 
   changeImage(event: any) {
-    if (event.target.files[0]) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      let input = document.getElementById('profileImage');
-      input.title = file.name;
-      reader.onload = (event) => {
-        if (event.target.result) {
-          this.user.imgUrl = event.target.result.toString();
-        }
-      };
-      reader.readAsDataURL(file);
-    }
+    this.usersService.changeImage(event, this.user);
   }
 
   searchForAddress() {

@@ -1,6 +1,6 @@
 export interface NewsInterface {
   newsId: string;
-  imgUrl: string;
+  imgs: string[];
   title: string;
   subtitle?: string;
   content: string;
@@ -10,7 +10,7 @@ export interface NewsInterface {
 
 export class News implements NewsInterface {
   newsId: string = '';
-  imgUrl: string = '';
+  imgs: string[] = [];
   title: string = '';
   subtitle?: string = '';
   content: string = '';

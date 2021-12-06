@@ -11,18 +11,26 @@
 <ion-content>
   <ion-grid>
     <ion-row class="ion-margin-top ion-justify-content-center">
-      <img [src]="news.imgUrl" />
-    </ion-row>
-
-    <ion-row class="ion-margin-top ion-justify-content-center">
       <h1>{{news.title | uppercase}}</h1>
     </ion-row>
-    <ion-row class="ion-margin-top ion-justify-content-center ">
+    <ion-row class="ion-margin-top ion-justify-content-center content-row">
       <p class="ion-text-justify">{{news.content}}</p>
 
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center">
       <ion-chip *ngFor="let tag of news.tags" outline [color]="tag.color">{{tag.tagName}}</ion-chip>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row class="img-row">
+      <ion-col [sizeSm]="3" [sizeXs]="12" *ngFor="let img of news.imgs">
+        <ion-card>
+          <ion-card-content>
+            <ion-img [src]="img" [alt]="img"></ion-img>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -4,8 +4,9 @@
   </ion-row>
   <ion-row class="ion-margin-top ion-justify-content-center">
     <div class="img-div">
-      <img [src]="user.imgUrl" />
-      <ion-icon size="large" name="camera"></ion-icon>
+      <input #imgInput type="file" accept="image/*" id="profileImage" hidden (input)="changeImage($event)" />
+      <img [src]="tempUser.imgUrl" />
+      <ion-icon size="large" name="camera" (click)="imgInput.click()"></ion-icon>
     </div>
   </ion-row>
   <ion-row class="ion-justify-content-center">
@@ -18,61 +19,62 @@
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Nome</ion-label>
-        <ion-input [(ngModel)]="user.nome"></ion-input>
+        <ion-input [(ngModel)]="tempUser.nome"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Cognome</ion-label>
-        <ion-input [(ngModel)]="user.cognome"></ion-input>
+        <ion-input [(ngModel)]="tempUser.cognome"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="user.email" disabled></ion-input>
+        <ion-input [(ngModel)]="tempUser.email" disabled></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
-        <ion-label position="stacked">Data din nascita</ion-label>
-        <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="user.dataNascita">
+        <ion-label position="stacked">Data di nascita</ion-label>
+        <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="tempUser.dataNascita">
         </ion-datetime>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Località</ion-label>
-        <ion-input [(ngModel)]="user.localita"></ion-input>
+        <ion-input [(ngModel)]="tempUser.localita"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Lavoro</ion-label>
-        <ion-input [(ngModel)]="user.lavoro"></ion-input>
+        <ion-input [(ngModel)]="tempUser.lavoro"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Indirizzo spedizione calendario</ion-label>
-        <ion-input [(ngModel)]="user.indirizzoSpedizione"></ion-input>
+        <ion-input [(ngModel)]="tempUser.indirizzoSpedizione"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label>Fatti Trovare</ion-label>
-        <ion-toggle color="primary" [(ngModel)]="user.fattiTrovare"></ion-toggle>
+        <ion-toggle color="primary" [(ngModel)]="tempUser.fattiTrovare"></ion-toggle>
       </ion-item>
     </ion-row>
-    <ion-button class="ion-margin-top ion-justify-content-center button" expand="block">Salva modifiche</ion-button>
+    <ion-button class="ion-margin-top ion-justify-content-center button" expand="block" (click)="updateProfile()">
+      Salva modifiche</ion-button>
   </ion-item-group>
   <ion-item-group class="ion-margin-top" *ngIf="currentTab === 'quote'">
     <ion-row class="ion-margin-top">
       <ion-col class="ion-text-center">
-        <ion-title>Stato quote: <span [class]="user.quoteInRegola ? 'in-regola' : 'non-in-regola'">{{user.quoteInRegola
+        <ion-title>Stato quote: <span
+            [class]="tempUser.quoteInRegola ? 'in-regola' : 'non-in-regola'">{{user.quoteInRegola
             ? 'In regola' : 'Non in regola'}}</span></ion-title>
       </ion-col>
     </ion-row>
   </ion-item-group>
-
 </ion-content>

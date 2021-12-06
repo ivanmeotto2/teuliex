@@ -6,7 +6,9 @@
     <swiper [pagination]="true" [keyboard]="true">
       <ng-template swiperSlide *ngFor="let notizia of latestNews">
         <ion-card (click)="openNews(notizia.newsId)">
-          <ion-card-header><img [src]=" notizia.imgUrl" />
+          <ion-card-header>
+            <ion-img (ionImgDidLoad)="dismissLoading()" [src]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"
+              [alt]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"></ion-img>
           </ion-card-header>
           <ion-card-content>
             <h1><b>{{notizia.title | uppercase}}</b></h1>
@@ -24,26 +26,15 @@
       <h1>Tutte le news: </h1>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-col [sizeXs]="12" [sizeSm]="5" *ngFor="let notizia of news.slice(0, news.length / 2)">
+      <ion-col [sizeXs]="12" [sizeSm]="5" *ngFor="let notizia of news">
         <ion-card (click)="openNews(notizia.newsId)">
           <ion-card-header>
-            <img [src]="notizia.imgUrl" />
+            <ion-img (ionImgDidLoad)="dismissLoading()" [src]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"
+              [alt]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"></ion-img>
           </ion-card-header>
           <ion-card-content>
             <ion-title>{{notizia.title}}</ion-title>
-            <ion-row class="ion-margin-top">
-              <ion-chip *ngFor="let tag of notizia.tags" [color]="tag.color">{{tag.tagName}}</ion-chip>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col [sizeXs]="12" [sizeSm]="5" *ngFor="let notizia of news.slice(news.length / 2, news.length)">
-        <ion-card (click)="openNews(notizia.newsId)">
-          <ion-card-header>
-            <img [src]="notizia.imgUrl" />
-          </ion-card-header>
-          <ion-card-content>
-            <ion-title>{{notizia.title}}</ion-title>
+            <ion-card-subtitle>{{notizia.subtitle}}</ion-card-subtitle>
             <ion-row class="ion-margin-top">
               <ion-chip *ngFor="let tag of notizia.tags" [color]="tag.color">{{tag.tagName}}</ion-chip>
             </ion-row>
