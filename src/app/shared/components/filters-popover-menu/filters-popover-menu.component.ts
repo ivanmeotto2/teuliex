@@ -15,15 +15,11 @@ export class FiltersPopoverMenuComponent {
   autocompleteItems: any[];
   addressSelected: boolean = false;
 
-  constructor(
-    private readonly popoverController: PopoverController,
-    private locationService: LocationService
-  ) {
+  constructor(private readonly popoverController: PopoverController, private locationService: LocationService) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
     this.filters = {
-      name: '',
       surname: '',
       job: '',
       address: '',
@@ -39,10 +35,7 @@ export class FiltersPopoverMenuComponent {
       return;
     } else {
       if (!this.addressSelected) {
-        this.locationService.findLocation(
-          this.autocomplete,
-          this.autocompleteItems
-        );
+        this.locationService.findLocation(this.autocomplete, this.autocompleteItems);
       } else {
         this.addressSelected = false;
       }
@@ -57,12 +50,7 @@ export class FiltersPopoverMenuComponent {
   }
 
   checkDisabled() {
-    if (
-      !this.filters.address &&
-      !this.filters.job &&
-      !this.filters.name &&
-      !this.filters.surname
-    ) {
+    if (!this.filters.address && !this.filters.job && !this.filters.surname) {
       return true;
     }
     return false;

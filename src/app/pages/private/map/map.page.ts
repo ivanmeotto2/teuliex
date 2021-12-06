@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LoadingController, PopoverController } from '@ionic/angular';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { LoadingController, PopoverController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/shared/interfaces/user';
 import { FiltersPopoverMenuComponent } from '../../../shared/components/filters-popover-menu/filters-popover-menu.component';
 import { FiltersInterface } from '../../../shared/interfaces/filters';
@@ -13,6 +13,7 @@ import { Marker } from 'src/app/shared/interfaces/marker';
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage {
+  @ViewChild('map', { read: ElementRef }) map: google.maps.Map;
   center: google.maps.LatLng = new google.maps.LatLng(0, 0);
   mapOptions: google.maps.MapOptions = {
     fullscreenControl: false,
@@ -20,7 +21,7 @@ export class MapPage {
     streetViewControl: false,
   };
   filters: FiltersInterface = {
-    name: '',
+    surname: '',
     job: '',
     address: '',
     toFilter: false,
@@ -32,7 +33,8 @@ export class MapPage {
     private readonly loadingCtrl: LoadingController,
     private readonly popoverController: PopoverController,
     private usersService: UsersService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private toastController: ToastController
   ) {}
 
   ionViewWillEnter() {
@@ -46,10 +48,7 @@ export class MapPage {
     await loading.present();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        this.center = new google.maps.LatLng(
-          position.coords.latitude,
-          position.coords.longitude
-        );
+        this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         await loading.dismiss();
       });
     }
@@ -57,7 +56,7 @@ export class MapPage {
 
   async openFilters() {
     this.filters = {
-      name: '',
+      surname: '',
       job: '',
       address: '',
       toFilter: false,
@@ -71,10 +70,7 @@ export class MapPage {
     });
     await popover.present();
     await popover.onDidDismiss();
-    if (
-      (this.filters.job || this.filters.name || this.filters.address) &&
-      this.filters.toFilter
-    ) {
+    if ((this.filters.job || this.filters.surname || this.filters.address) && this.filters.toFilter) {
       this.filterMap();
     }
   }
@@ -87,23 +83,32 @@ export class MapPage {
     this.points = [];
     const filterString = this.composeFilterString();
     const users = await this.usersService.findAll(filterString);
-    this.locationService.getAllLocations(users, this.points);
+    this.points = this.locationService.getAllLocations(users, this.points, this.map);
+    console.log(this.points);
     await loading.dismiss();
+    if (this.points.length === 0) {
+      const toast = await this.toastController.create({
+        message: 'Nessun utente trovato',
+        duration: 4000,
+        color: 'dark',
+        buttons: [
+          {
+            icon: 'close',
+            role: 'cancel',
+            side: 'end',
+          },
+        ],
+      });
+      await toast.present();
+    }
   }
 
   composeFilterString() {
     let filterString = '';
-    if (this.filters.name || this.filters.job || this.filters.address)
-      filterString += '?';
-    if (this.filters.name) filterString += `nome=${this.filters.name}`;
-    if (this.filters.surname) {
-      if (filterString === '?')
-        filterString += `cognome=${this.filters.surname}`;
-      else filterString += `&cognome=${this.filters.surname}`;
-    }
+    if (this.filters.surname || this.filters.job || this.filters.address) filterString += '?';
+    if (this.filters.surname) filterString += `cognome=${this.filters.surname}`;
     if (this.filters.address) {
-      if (filterString === '?')
-        filterString += `localita=${this.filters.address}`;
+      if (filterString === '?') filterString += `localita=${this.filters.address}`;
       else filterString += `&localita=${this.filters.address}`;
     }
     if (this.filters.job) {
@@ -111,9 +116,5 @@ export class MapPage {
       else filterString += `&lavoro=${this.filters.job}`;
     }
     return filterString;
-  }
-
-  prova(event: Marker) {
-    console.log(event.user);
   }
 }

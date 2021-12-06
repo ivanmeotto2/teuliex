@@ -1,7 +1,7 @@
 <ion-content>
-  <google-map height="100%" width="100%" [center]="center" [zoom]="10" [options]="mapOptions">
+  <google-map #map height="100%" width="100%" [center]="center" [zoom]="10" [options]="mapOptions">
     <span *ngIf="points">
-      <map-marker *ngFor="let point of points" [position]="point.getPosition()" (mapClick)="prova(point)">
+      <map-marker *ngFor="let point of points" [position]="point.getPosition()">
       </map-marker>
     </span>
   </google-map>
