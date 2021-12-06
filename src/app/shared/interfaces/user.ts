@@ -1,4 +1,5 @@
 export interface UserInterface {
+  id?: string;
   email: string;
   nome: string;
   cognome: string;
@@ -16,6 +17,7 @@ export interface UserInterface {
 }
 
 export class User implements UserInterface {
+  id?: string = '';
   email: string = '';
   nome: string = '';
   cognome: string = '';

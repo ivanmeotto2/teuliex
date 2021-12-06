@@ -13,11 +13,11 @@ export class UsersService {
 		private readonly alertCtrl: AlertController,
 		private readonly usersApiService: UsersApiService
 	) {
-		this.retrieveAll();
+		this.retrieveAll('');
 	}
 
-	async retrieveAll() {
-		const retrievedUsers = await this.usersApiService.getAllUsers();
+	async retrieveAll(filterString: string) {
+		const retrievedUsers = await this.usersApiService.getAllUsers(filterString);
 		Object.assign(this.users, retrievedUsers);
 	}
 
@@ -37,7 +37,7 @@ export class UsersService {
 			return false;
 		} else {
 			await this.usersApiService.createUser(user);
-			this.retrieveAll();
+			this.retrieveAll('');
 			this.users.push(user);
 			return true;
 		}
@@ -50,7 +50,9 @@ export class UsersService {
 		return false;
 	}
 
-	findAll() {
+	async findAll(filterString: string) {
+		this.users = [];
+		await this.retrieveAll(filterString);
 		return this.users;
 	}
 

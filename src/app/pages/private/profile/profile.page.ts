@@ -7,8 +7,8 @@ import {
   setItemLocalStorage,
 } from '../../../shared/utils/utils';
 import { AlertController, ToastController } from '@ionic/angular';
-import { jsonEval } from '@firebase/util';
 import { Router } from '@angular/router';
+import { LocationService } from '../../../shared/services/location.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,26 +19,40 @@ export class ProfilePage implements OnInit {
   user: User = new User();
   currentTab: string = 'details';
   tempUser: User = new User();
+  autocompleteLocation: { input: string };
+  autocompleteCalendar: { input: string };
+  autocompleteItems: any[] = [];
+  locationSelected: boolean = false;
+  addressSelected: boolean = false;
+  isLocationSelected: boolean = false;
 
   constructor(
     private usersService: UsersService,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
-    private router: Router
-  ) {}
+    private router: Router,
+    private locationService: LocationService
+  ) {
+    this.autocompleteLocation = { input: this.user.localita };
+    this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
+    this.locationSelected = false;
+    this.addressSelected = false;
+    this.autocompleteItems = [];
+  }
 
   ngOnInit() {
     this.user = JSON.parse(getItemLocalStorage('user'));
     this.tempUser = JSON.parse(getItemLocalStorage('user'));
-    console.log(
-      JSON.stringify(this.user) == JSON.stringify(this.tempUser),
-      this.user,
-      this.tempUser
-    );
+    this.autocompleteLocation = { input: this.user.localita };
+    this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
   }
 
   setCurrentTab(value: any) {
     this.currentTab = value;
+  }
+
+  setIsLocationSelected(value: boolean) {
+    this.isLocationSelected = value;
   }
 
   changeImage(event: any) {
@@ -88,5 +102,49 @@ export class ProfilePage implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  searchForAddress() {
+    this.autocompleteItems = [];
+    if (this.isLocationSelected) {
+      if (this.autocompleteLocation.input === '') {
+        return;
+      } else {
+        if (!this.locationSelected) {
+          this.locationService.findLocation(
+            this.autocompleteLocation,
+            this.autocompleteItems
+          );
+        } else {
+          this.locationSelected = false;
+        }
+      }
+    } else {
+      if (this.autocompleteCalendar.input === '') {
+        return;
+      } else {
+        if (!this.addressSelected) {
+          this.locationService.findLocation(
+            this.autocompleteCalendar,
+            this.autocompleteItems
+          );
+        } else {
+          this.addressSelected = false;
+        }
+      }
+    }
+  }
+
+  selectedPlace(item: any) {
+    if (this.isLocationSelected) {
+      this.tempUser.localita = item.description;
+      this.autocompleteLocation.input = item.description;
+      this.locationSelected = true;
+    } else {
+      this.tempUser.indirizzoSpedizione = item.description;
+      this.autocompleteCalendar.input = item.description;
+      this.addressSelected = true;
+    }
+    this.autocompleteItems = [];
   }
 }

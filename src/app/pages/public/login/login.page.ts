@@ -43,7 +43,7 @@ export class LoginPage {
       });
       await alert.present();
     } else {
-      const users = this.usersService.findAll();
+      const users = await this.usersService.findAll('');
       users.forEach((user) => {
         if (user.email === this.email) {
           this.userExists = true;

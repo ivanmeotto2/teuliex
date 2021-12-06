@@ -9,9 +9,10 @@ import { UsersService } from './shared/services/users.service';
 import { HttpClientModule } from '@angular/common/http';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from 'src/environments/environment';
+import { InfoWindowMarkerComponent } from './shared/components/info-window-marker/info-window-marker.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, InfoWindowMarkerComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

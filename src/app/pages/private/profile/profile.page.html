@@ -41,11 +41,16 @@
         </ion-datetime>
       </ion-item>
     </ion-row>
-    <ion-row class="ion-margin-top ion-justify-content-center input-row">
-      <ion-item>
+    <ion-row class="ion-margin-top ion-justify-content-center input-row autocomplete-div">
+      <ion-item class="searchbar-container">
         <ion-label position="stacked">Località</ion-label>
-        <ion-input [(ngModel)]="tempUser.localita"></ion-input>
+        <ion-input (ionFocus)="setIsLocationSelected(true)" (ionChange)="searchForAddress()" debounce="1000"
+          [(ngModel)]="autocompleteLocation.input"></ion-input>
       </ion-item>
+      <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || !isLocationSelected">
+        <ion-item *ngFor="let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
+        </ion-item>
+      </ion-list>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
@@ -53,11 +58,16 @@
         <ion-input [(ngModel)]="tempUser.lavoro"></ion-input>
       </ion-item>
     </ion-row>
-    <ion-row class="ion-margin-top ion-justify-content-center input-row">
-      <ion-item>
+    <ion-row class="ion-margin-top ion-justify-content-center input-row autocomplete-div">
+      <ion-item class="searchbar-container">
         <ion-label position="stacked">Indirizzo spedizione calendario</ion-label>
-        <ion-input [(ngModel)]="tempUser.indirizzoSpedizione"></ion-input>
+        <ion-input (ionFocus)="setIsLocationSelected(false)" (ionChange)="searchForAddress()" debounce="1000"
+          [(ngModel)]="autocompleteCalendar.input"></ion-input>
       </ion-item>
+      <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || isLocationSelected">
+        <ion-item *ngFor=" let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
+        </ion-item>
+      </ion-list>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>

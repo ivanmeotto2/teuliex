@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { User } from 'src/app/shared/interfaces/user';
+import { UsersService } from 'src/app/shared/services/users.service';
 import { getItemLocalStorage } from 'src/app/shared/utils/utils';
 import { TabNamePipe } from '../../shared/pipes/tab-name.pipe';
 
@@ -16,7 +17,7 @@ export class PrivatePage {
   constructor(private menuController: MenuController) {}
   user: User = new User();
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.user = JSON.parse(getItemLocalStorage('user'));
     this.getActualTabOnInit();
   }

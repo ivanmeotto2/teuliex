@@ -8,8 +8,8 @@ import { API_BASE } from '../shared/constants/consts';
 export class UsersApiService {
   constructor(private http: HttpClient) {}
 
-  getAllUsers() {
-    return this.http.get(`${API_BASE}/users`).toPromise();
+  getAllUsers(filterString: string) {
+    return this.http.get(`${API_BASE}/users${filterString}`).toPromise();
   }
 
   createUser(body: any) {
