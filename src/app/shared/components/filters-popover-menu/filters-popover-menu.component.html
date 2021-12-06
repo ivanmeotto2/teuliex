@@ -5,8 +5,14 @@
   <ion-item-group class="ion-justify-content-center ion-margin-bottom">
     <ion-row class="ion-margin-top ion-justify-content-center">
       <ion-item>
-        <ion-label position="stacked">Nome e Cognome</ion-label>
+        <ion-label position="stacked">Nome</ion-label>
         <ion-input autocomplete="off" [(ngModel)]="filters.name"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <ion-item>
+        <ion-label position="stacked">Cognome</ion-label>
+        <ion-input autocomplete="off" [(ngModel)]="filters.surname"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center autocomplete-div">
