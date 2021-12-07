@@ -9,8 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () =>
-          import('./home/home.module').then((m) => m.HomePageModule),
+        loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
       },
       {
         path: '',
@@ -19,25 +18,27 @@ const routes: Routes = [
       },
       {
         path: 'map',
-        loadChildren: () =>
-          import('./map/map.module').then((m) => m.MapPageModule),
+        loadChildren: () => import('./map/map.module').then((m) => m.MapPageModule),
       },
       {
         path: 'card',
-        loadChildren: () =>
-          import('./card/card.module').then((m) => m.CardPageModule),
+        loadChildren: () => import('./card/card.module').then((m) => m.CardPageModule),
       },
       {
         path: 'settings',
-        loadChildren: () =>
-          import('./settings/settings.module').then(
-            (m) => m.SettingsPageModule
-          ),
+        loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsPageModule),
       },
       {
         path: 'profile',
-        loadChildren: () =>
-          import('./profile/profile.module').then((m) => m.ProfilePageModule),
+        loadChildren: () => import('./profile/profile.module').then((m) => m.ProfilePageModule),
+      },
+      {
+        path: 'stato-quote',
+        loadChildren: () => import('./stato-quote/stato-quote.module').then((m) => m.StatoQuotePageModule),
+      },
+      {
+        path: 'credits',
+        loadChildren: () => import('./credits/credits.module').then((m) => m.CreditsPageModule),
       },
     ],
   },
@@ -48,10 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'news/:id',
-    loadChildren: () =>
-      import('./news-details/news-details.module').then(
-        (m) => m.NewsDetailsPageModule
-      ),
+    loadChildren: () => import('./news-details/news-details.module').then((m) => m.NewsDetailsPageModule),
   },
 ];
 

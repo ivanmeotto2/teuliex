@@ -1,11 +1,12 @@
-ion-grid {
-  width: 60%;
-}
-
 ion-footer {
   display: flex;
-  margin-bottom: 2%;
   ion-button {
-    margin-right: 2%;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
   }
+}
+
+ion-item {
+  --padding-start: 0px !important;
 }

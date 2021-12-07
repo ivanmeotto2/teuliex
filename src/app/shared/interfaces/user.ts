@@ -10,6 +10,8 @@ export interface UserInterface {
   imgUrl: string;
   quoteInRegola: boolean;
   notifichePush: boolean;
+  mostraEmail: boolean;
+  mostraNumTel: boolean;
   indirizzoSpedizione: string;
   fattiTrovare: boolean;
   password: string;
@@ -28,6 +30,8 @@ export class User implements UserInterface {
   imgUrl: string = './../../assets/images/avatar.jpeg';
   quoteInRegola: boolean = false;
   notifichePush: boolean = false;
+  mostraEmail: boolean = false;
+  mostraNumTel: boolean = false;
   indirizzoSpedizione: string = '';
   fattiTrovare: boolean = false;
   password: string = '';

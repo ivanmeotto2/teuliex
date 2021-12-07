@@ -19,12 +19,12 @@
 }
 
 ion-content {
-  width: 80%;
-  align-self: center;
-  .input-row {
-    ion-item {
-      width: 100%;
-    }
+  width: 100%;
+  ion-item-group {
+    margin: auto;
+  }
+  ion-item {
+    width: 100%;
   }
   ion-segment {
     width: 100%;
@@ -37,14 +37,6 @@ ion-content {
   margin: auto;
   margin-top: 5%;
   margin-bottom: 5%;
-}
-
-.in-regola {
-  color: #198754;
-}
-
-.non-in-regola {
-  color: #dc3545;
 }
 
 .autocomplete-div {
@@ -61,6 +53,7 @@ ion-content {
     overflow-y: auto;
     ion-item {
       cursor: pointer;
+      --padding-start: 0px !important;
     }
   }
 }

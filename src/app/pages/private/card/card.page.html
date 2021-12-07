@@ -1,30 +1,28 @@
 <ion-content>
-  <ion-row class="ion-margin-top ion-justify-content-center">
-    <h1>Ecco la tua tessera ex allievo</h1>
-  </ion-row>
-  <ion-row class="ion-margin-top ion-justify-content-center">
-    <ion-card>
-      <ion-card-content>
-        <ion-row>
-          <ion-col [size]="3">
-            <img [src]="user.imgUrl" />
-          </ion-col>
-          <ion-col [size]="1"></ion-col>
-          <ion-col [size]="8" class="ion-align-items-center dati">
-            <ion-card-title>Nome: {{user.nome}}</ion-card-title>
-            <ion-card-title>Cognome: {{user.cognome}}</ion-card-title>
-            <ion-card-title>Data di nascita: {{user.dataNascita}}</ion-card-title>
-            <ion-card-title>Località: {{user.localita}}</ion-card-title>
-            <ion-card-title>Lavoro: {{user.lavoro}}</ion-card-title>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </ion-row>
-  <ion-row class="ion-margin-top ion-justify-content-center">
-    <h2>Il tuo QR Code</h2>
-  </ion-row>
-  <ion-row class="ion-margin-top ion-justify-content-center qr-code">
-    <img src="./../../../../assets/images/example-qr.png" />
-  </ion-row>
+  <img class="qr-code" src="./../../../../assets/images/example-qr.png" />
+  <div class="card">
+    <ion-img [src]="user.imgUrl"></ion-img>
+    <ion-item-group class="ion-margin">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-text>{{user.nome}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Cognome</ion-label>
+        <ion-text>{{user.cognome}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Data di nascita</ion-label>
+        <ion-text>{{user.dataNascita | date: 'dd/MM/yyyy'}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Località</ion-label>
+        <ion-text>{{user.localita}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Lavoro</ion-label>
+        <ion-text>{{user.lavoro}}</ion-text>
+      </ion-item>
+    </ion-item-group>
+  </div>
 </ion-content>

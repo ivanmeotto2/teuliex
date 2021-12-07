@@ -1,4 +1,20 @@
-ion-fab {
-  margin-left: 2%;
-  margin-bottom: 2%;
+.gps-filters {
+  display: flex;
+  flex-direction: row;
+  ion-title {
+    cursor: pointer;
+  }
+}
+
+ion-item {
+  display: flex;
+  flex-direction: row;
+  ion-img {
+    max-width: 10%;
+    aspect-ratio: 1;
+  }
+  ion-list {
+    display: flex;
+    flex-direction: column;
+  }
 }

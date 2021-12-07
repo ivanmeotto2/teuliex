@@ -6,6 +6,7 @@ import { FiltersInterface } from '../../../shared/interfaces/filters';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { LocationService } from '../../../shared/services/location.service';
 import { Marker } from 'src/app/shared/interfaces/marker';
+import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 
 @Component({
   selector: 'app-map',
@@ -13,7 +14,8 @@ import { Marker } from 'src/app/shared/interfaces/marker';
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage {
-  @ViewChild('map', { read: ElementRef }) map: google.maps.Map;
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
   center: google.maps.LatLng = new google.maps.LatLng(0, 0);
   mapOptions: google.maps.MapOptions = {
     fullscreenControl: false,
@@ -28,6 +30,7 @@ export class MapPage {
   };
   filteredUsers: User[] = [];
   points: Marker[] = [];
+  currentTab: 'map' | 'list' = 'list';
 
   constructor(
     private readonly loadingCtrl: LoadingController,
@@ -42,6 +45,7 @@ export class MapPage {
   }
 
   async getLocation() {
+    this.points = [];
     const loading = await this.loadingCtrl.create({
       message: 'Retrieving user position...',
     });
@@ -51,6 +55,10 @@ export class MapPage {
         this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         await loading.dismiss();
       });
+      const marker = new Marker({
+        position: this.center,
+      });
+      this.points.push(marker);
     }
   }
 
@@ -76,6 +84,7 @@ export class MapPage {
   }
 
   async filterMap() {
+    this.filteredUsers = [];
     const loading = await this.loadingCtrl.create({
       message: 'Filtrando la ricerca. Attendere prego...',
     });
@@ -83,8 +92,34 @@ export class MapPage {
     this.points = [];
     const filterString = this.composeFilterString();
     const users = await this.usersService.findAll(filterString);
-    this.points = this.locationService.getAllLocations(users, this.points, this.map);
-    console.log(this.points);
+    for (const user of users) {
+      if (user.fattiTrovare) {
+        const geocoderResponse = await this.locationService.createMarker(user);
+        if (geocoderResponse) {
+          const marker = new Marker({
+            position: {
+              lat: geocoderResponse.results[0].geometry.location.lat(),
+              lng: geocoderResponse.results[0].geometry.location.lng(),
+            },
+          });
+          const markerOptions: google.maps.MarkerOptions = {
+            icon: {
+              url: user.imgUrl,
+              scaledSize: new google.maps.Size(50, 50, 'px', 'px'),
+            },
+          };
+          marker.setOptions(markerOptions);
+          marker.addListener('click', () => {
+            console.log('prova');
+          });
+          marker.user = user;
+          if (marker) {
+            this.points.push(marker);
+            this.filteredUsers.push(user);
+          }
+        }
+      }
+    }
     await loading.dismiss();
     if (this.points.length === 0) {
       const toast = await this.toastController.create({
@@ -116,5 +151,14 @@ export class MapPage {
       else filterString += `&lavoro=${this.filters.job}`;
     }
     return filterString;
+  }
+
+  prova(point: any) {
+    console.log(point.user);
+  }
+
+  toggleView() {
+    if (this.currentTab === 'map') this.currentTab = 'list';
+    else this.currentTab = 'map';
   }
 }

@@ -4,6 +4,7 @@ import { AlertController, MenuController } from '@ionic/angular';
 import { MENU_OPTIONS } from '../../constants/consts';
 import { removeItemLocalStorage } from '../../utils/utils';
 import { User } from 'src/app/shared/interfaces/user';
+import pkg from '../../../../../package.json';
 
 @Component({
   selector: 'app-side-menu',
@@ -11,22 +12,19 @@ import { User } from 'src/app/shared/interfaces/user';
   styleUrls: ['./side-menu.component.scss'],
 })
 export class SideMenuComponent implements OnInit {
+  readonly version = pkg.version;
   @Input() user?: User = new User();
   @Output() emitTabName: EventEmitter<string> = new EventEmitter<string>();
   menuOptions: any[] = [];
 
-  constructor(
-    private readonly alertController: AlertController,
-    private router: Router,
-    private menuController: MenuController
-  ) {}
+  constructor(private readonly alertController: AlertController, private router: Router, private menuController: MenuController) {}
 
   ngOnInit() {
     Object.assign(this.menuOptions, MENU_OPTIONS);
   }
 
   async handleNavigation(route: string[], tabValue?: string) {
-    if (route[0] === 'auth') {
+    if (route[0] === 'auth' && this.user) {
       const alert = await this.alertController.create({
         header: 'Attenzione',
         message: 'Vuoi veramente uscire?',
@@ -55,5 +53,25 @@ export class SideMenuComponent implements OnInit {
     this.emitTabName.emit(tabValue);
     await this.router.navigate(route);
     await this.menuController.close('main-menu');
+  }
+
+  async alert() {
+    const alert = await this.alertController.create({
+      header: 'Attenzione',
+      message: 'Per accedere a questa pagina è necessario il login. Clicca qui per andare alla schermata di accesso',
+      buttons: [
+        {
+          text: 'Vai al login',
+          handler: () => {
+            this.handleNavigation(['auth', 'login'], 'login');
+          },
+        },
+        {
+          text: 'Annulla',
+          role: 'cancel',
+        },
+      ],
+    });
+    await alert.present();
   }
 }

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from 'src/environments/environment';
-import { UsersService } from './shared/services/users.service';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +7,13 @@ import { UsersService } from './shared/services/users.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private usersService: UsersService) {}
+  constructor() {}
+
+  async ionViewWillEnter() {
+    await SplashScreen.hide();
+    await SplashScreen.show({
+      autoHide: true,
+      showDuration: 4000,
+    });
+  }
 }

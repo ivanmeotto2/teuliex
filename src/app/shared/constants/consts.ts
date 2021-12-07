@@ -4,6 +4,8 @@ export enum TABS_NAME {
   card = 'Tessera ex allievo',
   settings = 'Impostazioni',
   profile = 'Profilo',
+  'stato-quote' = 'Stato Quote',
+  credits = 'Crediti',
 }
 
 export const API_BASE = 'https://61a77dce387ab200171d2d20.mockapi.io/';
@@ -32,5 +34,17 @@ export const MENU_OPTIONS = [
     path: '/private/settings',
     icon: 'settings-outline',
     needsLogin: true,
+  },
+  {
+    name: 'Stato quote',
+    path: '/private/stato-quote',
+    icon: 'document-text-outline',
+    needsLogin: true,
+  },
+  {
+    name: 'Crediti',
+    path: '/private/credits',
+    icon: 'brush-outline',
+    needsLogin: false,
   },
 ];

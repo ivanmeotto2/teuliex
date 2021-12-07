@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
-import {
-  getItemLocalStorage,
-  removeItemLocalStorage,
-  setItemLocalStorage,
-} from '../../../shared/utils/utils';
+import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from '../../../shared/utils/utils';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LocationService } from '../../../shared/services/location.service';
@@ -17,7 +13,6 @@ import { LocationService } from '../../../shared/services/location.service';
 })
 export class ProfilePage implements OnInit {
   user: User = new User();
-  currentTab: string = 'details';
   tempUser: User = new User();
   autocompleteLocation: { input: string };
   autocompleteCalendar: { input: string };
@@ -45,10 +40,6 @@ export class ProfilePage implements OnInit {
     this.tempUser = JSON.parse(getItemLocalStorage('user'));
     this.autocompleteLocation = { input: this.user.localita };
     this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
-  }
-
-  setCurrentTab(value: any) {
-    this.currentTab = value;
   }
 
   setIsLocationSelected(value: boolean) {
@@ -86,8 +77,7 @@ export class ProfilePage implements OnInit {
       setItemLocalStorage('user', JSON.stringify(this.tempUser));
       this.user = this.tempUser;
       const toast = await this.toastCtrl.create({
-        message:
-          'Modifiche avvenute con successo (alcune modifiche non verranno visualizzate fino al prossimo refresh della pagina)',
+        message: 'Modifiche avvenute con successo (alcune modifiche non verranno visualizzate fino al prossimo refresh della pagina)',
         duration: 4000,
         buttons: [
           {
@@ -111,10 +101,7 @@ export class ProfilePage implements OnInit {
         return;
       } else {
         if (!this.locationSelected) {
-          this.locationService.findLocation(
-            this.autocompleteLocation,
-            this.autocompleteItems
-          );
+          this.locationService.findLocation(this.autocompleteLocation, this.autocompleteItems);
         } else {
           this.locationSelected = false;
         }
@@ -124,10 +111,7 @@ export class ProfilePage implements OnInit {
         return;
       } else {
         if (!this.addressSelected) {
-          this.locationService.findLocation(
-            this.autocompleteCalendar,
-            this.autocompleteItems
-          );
+          this.locationService.findLocation(this.autocompleteCalendar, this.autocompleteItems);
         } else {
           this.addressSelected = false;
         }
