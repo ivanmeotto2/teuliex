@@ -5,10 +5,9 @@
     </ion-fab-button>
   </ion-fab>
   <span *ngIf="currentTab === 'map'">
-    <google-map (tilesloaded)="getLocation()" #map height="100%" width="100%" [center]="center" [zoom]="10"
-      [options]="mapOptions">
+    <google-map #map height="100%" width="100%" [center]="center" [zoom]="6" [options]="mapOptions">
       <span *ngIf="points">
-        <map-marker *ngFor="let point of points" (mapClick)="prova(point)" [position]="point.getPosition()">
+        <map-marker *ngFor="let point of points" (mapClick)="openProfile(point)" [position]="point.getPosition()">
           <map-info-window></map-info-window>
         </map-marker>
       </span>
@@ -26,7 +25,7 @@
             <ion-text><b>{{user.nome + ' ' + user.cognome | uppercase}}</b></ion-text>
             <ion-text>{{user.dataNascita | date: 'dd/MM/yyyy'}}</ion-text>
             <ion-text>{{user.localita}}</ion-text>
-            <ion-text>{{user.lavoro}}</ion-text>
+            <ion-text>{{user.professione}}</ion-text>
           </ion-list>
           <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
         </ion-item>
@@ -36,8 +35,9 @@
 </ion-content>
 <ion-footer class="ion-padding-start ion-padding-end">
   <ion-toolbar>
-    <ion-icon [name]="currentTab === 'list' ? 'map-outline' : 'list-outline'" size="large" (click)="toggleView()">
+    <ion-icon name="locate-outline" size="large" (click)="getLocation()"></ion-icon>
+    <ion-icon [name]="currentTab === 'list' ? 'map-outline' : 'list-outline'" slot="end" size="large"
+      (click)="toggleView()">
     </ion-icon>
-    <ion-icon name="locate-outline" slot="end" size="large" (click)="getLocation()"></ion-icon>
   </ion-toolbar>
 </ion-footer>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from '../../../shared/utils/utils';
-import { ToastController } from '@ionic/angular';
+import { SETTINGS } from 'src/app/shared/constants/consts';
 
 @Component({
   selector: 'app-settings',
@@ -15,26 +16,36 @@ export class SettingsPage {
     notifichePush: false,
     mostraEmail: false,
     mostraNumTel: false,
+    fattiTrovare: false,
+  };
+  settings: any[] = [];
+  visibleOptions = {
+    notifichePush: false,
+    mostraEmail: false,
+    mostraNumTel: false,
+    fattiTrovare: false,
   };
 
   constructor(private usersService: UsersService, private toastController: ToastController) {}
 
   ionViewWillEnter() {
-    console.log(this.oldSettings);
     Object.assign(this.user, JSON.parse(getItemLocalStorage('user')));
     this.oldSettings = {
       notifichePush: this.user.notifichePush.valueOf(),
       mostraEmail: this.user.mostraEmail.valueOf(),
       mostraNumTel: this.user.mostraNumTel.valueOf(),
+      fattiTrovare: this.user.fattiTrovare.valueOf(),
     };
-    console.log(this.user.notifichePush, this.user.mostraEmail, this.user.mostraNumTel);
+    Object.assign(this.settings, SETTINGS);
+    console.log(this.settings);
   }
 
   checkDisabled() {
     if (
       this.user.notifichePush !== this.oldSettings.notifichePush ||
       this.user.mostraEmail !== this.oldSettings.mostraEmail ||
-      this.user.mostraNumTel !== this.oldSettings.mostraNumTel
+      this.user.mostraNumTel !== this.oldSettings.mostraNumTel ||
+      this.user.fattiTrovare !== this.oldSettings.fattiTrovare
     )
       return false;
     else return true;
@@ -66,8 +77,16 @@ export class SettingsPage {
       notifichePush: this.user.notifichePush.valueOf(),
       mostraEmail: this.user.mostraEmail.valueOf(),
       mostraNumTel: this.user.mostraNumTel.valueOf(),
+      fattiTrovare: this.user.fattiTrovare.valueOf(),
     };
     removeItemLocalStorage('user');
     setItemLocalStorage('user', JSON.stringify(this.user));
+  }
+
+  toggleInfo(value: boolean) {
+    console.log(value);
+    if (value === true) value = false;
+    else value = true;
+    console.log(value);
   }
 }

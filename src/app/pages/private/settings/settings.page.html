@@ -3,15 +3,47 @@
     <ion-item id="setting">
       <ion-toggle [(ngModel)]="user.notifichePush" color="primary"></ion-toggle>
       <ion-label>Notifiche push</ion-label>
+      <ion-icon slot="end" [name]="visibleOptions.notifichePush ? 'chevron-up-outline' : 'chevron-down-outline'"
+        (click)="visibleOptions.notifichePush = !visibleOptions.notifichePush">
+      </ion-icon>
     </ion-item>
+    <span [hidden]="!visibleOptions.notifichePush">
+      <p class="ion-margin">Abilitando quest'impostazione, permetterai all'applicazione di inviarti notifiche anche
+        quando questa non è in primo piano</p>
+    </span>
     <ion-item id="setting">
       <ion-toggle [(ngModel)]="user.mostraEmail" color="primary"></ion-toggle>
       <ion-label>Mostra Email</ion-label>
+      <ion-icon slot="end" [name]="visibleOptions.mostraEmail ? 'chevron-up-outline' : 'chevron-down-outline'"
+        (click)="visibleOptions.mostraEmail = !visibleOptions.mostraEmail">
+      </ion-icon>
     </ion-item>
+    <span [hidden]="!visibleOptions.mostraEmail">
+      <p class="ion-margin">Abilitando quest'impostazione, permetterai ad altri utenti di visualizzare il tuo indirizzo
+        email quando visitano il tuo profilo</p>
+    </span>
     <ion-item id="setting">
       <ion-toggle [(ngModel)]="user.mostraNumTel" color="primary"></ion-toggle>
       <ion-label>Mostra numero di telefono</ion-label>
+      <ion-icon slot="end" [name]="visibleOptions.mostraNumTel ? 'chevron-up-outline' : 'chevron-down-outline'"
+        (click)="visibleOptions.mostraNumTel = !visibleOptions.mostraNumTel">
+      </ion-icon>
     </ion-item>
+    <span [hidden]="!visibleOptions.mostraNumTel">
+      <p class="ion-margin">Abilitando quest'impostazione, permetterai ad altri utenti di visualizzare il tuo numero di
+        telefono quando visitano il tuo profilo</p>
+    </span>
+    <ion-item>
+      <ion-toggle [(ngModel)]="user.fattiTrovare" color="primary"></ion-toggle>
+      <ion-label>Fatti Trovare</ion-label>
+      <ion-icon slot="end" [name]="visibleOptions.fattiTrovare ? 'chevron-up-outline' : 'chevron-down-outline'"
+        (click)="visibleOptions.fattiTrovare = !visibleOptions.fattiTrovare">
+      </ion-icon>
+    </ion-item>
+    <span [hidden]="!visibleOptions.fattiTrovare">
+      <p class="ion-margin">Abilitando quest'impostazione, permetterai ad altri utenti di localizzarti quando cercano
+        un'ex allievo sulla mappa degli ex allievi</p>
+    </span>
   </ion-grid>
 </ion-content>
 

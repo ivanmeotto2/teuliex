@@ -8,7 +8,7 @@ export enum TABS_NAME {
   credits = 'Crediti',
 }
 
-export const API_BASE = 'https://61a77dce387ab200171d2d20.mockapi.io/';
+export const API_BASE = 'https://61a77dce387ab200171d2d20.mockapi.io';
 
 export const MENU_OPTIONS = [
   {
@@ -46,5 +46,28 @@ export const MENU_OPTIONS = [
     path: '/private/credits',
     icon: 'brush-outline',
     needsLogin: false,
+  },
+];
+
+export const SETTINGS = [
+  {
+    name: 'Notifiche push',
+    ngModel: 'user.notifichePush',
+    description: 'Testo di prova',
+  },
+  {
+    name: 'Mostra email',
+    ngModel: 'user.mostraEmail',
+    description: 'Testo di prova',
+  },
+  {
+    name: 'Mostra numero di telefono',
+    ngModel: 'user.mostraNumTel',
+    description: 'Testo di prova',
+  },
+  {
+    name: 'Fatti trovare',
+    ngModel: 'user.fattiTrovare',
+    description: 'Testo di prova',
   },
 ];

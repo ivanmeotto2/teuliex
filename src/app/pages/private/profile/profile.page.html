@@ -4,7 +4,8 @@
       <div class="img-div">
         <input #imgInput type="file" accept="image/*" id="profileImage" hidden (input)="changeImage($event)" />
         <img [src]="tempUser.imgUrl" />
-        <ion-icon [hidden]="checkDisabled()" size="large" name="camera" (click)="imgInput.click()"></ion-icon>
+        <ion-icon [hidden]="checkDisabled()" color="light" size="large" name="camera" (click)="imgInput.click()">
+        </ion-icon>
       </div>
     </ion-row>
     <ion-item-group class="ion-margin-top">
@@ -38,8 +39,8 @@
         </ion-list>
       </div>
       <ion-item>
-        <ion-label position="stacked">Lavoro</ion-label>
-        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.lavoro"></ion-input>
+        <ion-label position="stacked">Professione</ion-label>
+        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.professione"></ion-input>
       </ion-item>
       <div class="autocomplete-div">
         <ion-item class="searchbar-container">
@@ -52,10 +53,6 @@
           </ion-item>
         </ion-list>
       </div>
-      <ion-item>
-        <ion-label>Fatti Trovare</ion-label>
-        <ion-toggle [disabled]="checkDisabled()" color="primary" [(ngModel)]="tempUser.fattiTrovare"></ion-toggle>
-      </ion-item>
       <ion-button [hidden]="checkDisabled()" class="ion-margin-top ion-justify-content-center button" expand="block"
         (click)="updateProfile()">
         Salva modifiche</ion-button>

@@ -6,7 +6,7 @@ export interface UserInterface {
   cellulare: string;
   dataNascita: Date;
   localita: string;
-  lavoro: string;
+  professione: string;
   imgUrl: string;
   quoteInRegola: boolean;
   notifichePush: boolean;
@@ -26,7 +26,7 @@ export class User implements UserInterface {
   cellulare: string = '';
   dataNascita: Date = new Date();
   localita: string = '';
-  lavoro: string = '';
+  professione: string = '';
   imgUrl: string = './../../assets/images/avatar.jpeg';
   quoteInRegola: boolean = false;
   notifichePush: boolean = false;

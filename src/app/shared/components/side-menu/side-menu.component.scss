@@ -13,6 +13,10 @@
 }
 
 .footer {
-  border-top: 1px solid grey;
-  color: gray;
+  color: grey;
+}
+
+.profile-div {
+  display: flex;
+  flex-direction: column;
 }

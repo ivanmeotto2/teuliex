@@ -1,14 +1,13 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
+import { Router } from '@angular/router';
 import { LoadingController, PopoverController, ToastController } from '@ionic/angular';
+import { Marker } from 'src/app/shared/interfaces/marker';
 import { User } from 'src/app/shared/interfaces/user';
+import { UsersService } from 'src/app/shared/services/users.service';
 import { FiltersPopoverMenuComponent } from '../../../shared/components/filters-popover-menu/filters-popover-menu.component';
 import { FiltersInterface } from '../../../shared/interfaces/filters';
-import { UsersService } from 'src/app/shared/services/users.service';
 import { LocationService } from '../../../shared/services/location.service';
-import { Marker } from 'src/app/shared/interfaces/marker';
-import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
-import { getItemLocalStorage } from 'src/app/shared/utils/utils';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -18,6 +17,7 @@ import { Router } from '@angular/router';
 export class MapPage {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
+  bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds();
   center: google.maps.LatLng = new google.maps.LatLng(0, 0);
   mapOptions: google.maps.MapOptions = {
     fullscreenControl: false,
@@ -43,26 +43,26 @@ export class MapPage {
     private router: Router
   ) {}
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.filteredUsers = [];
+    await this.filterMap();
   }
 
   async getLocation() {
-    this.points = [];
-    const loading = await this.loadingCtrl.create({
-      message: 'Retrieving user position...',
-    });
-    await loading.present();
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        await loading.dismiss();
+    if (this.map.tilesloaded) {
+      const loading = await this.loadingCtrl.create({
+        message: 'Retrieving user position...',
       });
-      const marker = new Marker({
-        position: this.center,
-      });
-      marker.user = JSON.parse(getItemLocalStorage('user'));
-      this.points.push(marker);
+      await loading.present();
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          this.bounds.extend(this.center);
+          await loading.dismiss();
+        });
+        this.map.zoom = 7;
+        this.map.fitBounds(this.bounds);
+      }
     }
   }
 
@@ -89,10 +89,13 @@ export class MapPage {
 
   async filterMap() {
     this.filteredUsers = [];
+    this.bounds = new google.maps.LatLngBounds();
     const loading = await this.loadingCtrl.create({
       message: 'Filtrando la ricerca. Attendere prego...',
     });
-    await loading.present();
+    if (this.filters) {
+      await loading.present();
+    }
     this.points = [];
     const filterString = this.composeFilterString();
     const users = await this.usersService.findAll(filterString);
@@ -117,11 +120,14 @@ export class MapPage {
           if (marker) {
             this.points.push(marker);
             this.filteredUsers.push(user);
+            this.bounds.extend(marker.getPosition());
           }
         }
       }
     }
-    await loading.dismiss();
+    if (this.filters) {
+      await loading.dismiss();
+    }
     if (this.points.length === 0) {
       const toast = await this.toastController.create({
         message: 'Nessun utente trovato',
@@ -137,6 +143,8 @@ export class MapPage {
       });
       await toast.present();
     }
+    this.center = this.bounds.getCenter();
+    if (this.filteredUsers.length > 1) this.map.fitBounds(this.bounds);
   }
 
   composeFilterString() {
@@ -148,13 +156,13 @@ export class MapPage {
       else filterString += `&localita=${this.filters.address}`;
     }
     if (this.filters.job) {
-      if (filterString === '?') filterString += `lavoro=${this.filters.job}`;
-      else filterString += `&lavoro=${this.filters.job}`;
+      if (filterString === '?') filterString += `professione=${this.filters.job}`;
+      else filterString += `&professione=${this.filters.job}`;
     }
     return filterString;
   }
 
-  prova(point: Marker) {
+  openProfile(point: Marker) {
     console.log(point.user);
     this.router.navigate(['/private/profile'], { queryParams: { id: point.user.id } });
   }
