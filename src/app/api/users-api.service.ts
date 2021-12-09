@@ -12,6 +12,10 @@ export class UsersApiService {
     return this.http.get(`${API_BASE}/users${filterString}`).toPromise();
   }
 
+  getOneUser(id: string) {
+    return this.http.get(`${API_BASE}/users/${id}`).toPromise();
+  }
+
   createUser(body: any) {
     return this.http.post(`${API_BASE}/users`, body).toPromise();
   }

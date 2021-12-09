@@ -1,6 +1,12 @@
 <ion-content>
+  <ion-fab horizontal="end" vertical="top" (click)="openFilters()">
+    <ion-fab-button>
+      <ion-icon name="options-outline" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <span *ngIf="currentTab === 'map'">
-    <google-map #map height="100%" width="100%" [center]="center" [zoom]="10" [options]="mapOptions">
+    <google-map (tilesloaded)="getLocation()" #map height="100%" width="100%" [center]="center" [zoom]="10"
+      [options]="mapOptions">
       <span *ngIf="points">
         <map-marker *ngFor="let point of points" (mapClick)="prova(point)" [position]="point.getPosition()">
           <map-info-window></map-info-window>
@@ -30,10 +36,8 @@
 </ion-content>
 <ion-footer class="ion-padding-start ion-padding-end">
   <ion-toolbar>
-    <ion-icon name="map-outline" size="large" (click)="toggleView()"></ion-icon>
-    <div class="gps-filters" slot="end">
-      <ion-title (click)="openFilters()">Trova allievo</ion-title>
-      <ion-icon name="locate-outline" slot="end" size="large" (click)="getLocation()"></ion-icon>
-    </div>
+    <ion-icon [name]="currentTab === 'list' ? 'map-outline' : 'list-outline'" size="large" (click)="toggleView()">
+    </ion-icon>
+    <ion-icon name="locate-outline" slot="end" size="large" (click)="getLocation()"></ion-icon>
   </ion-toolbar>
 </ion-footer>

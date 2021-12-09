@@ -7,6 +7,8 @@ import { UsersService } from 'src/app/shared/services/users.service';
 import { LocationService } from '../../../shared/services/location.service';
 import { Marker } from 'src/app/shared/interfaces/marker';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
+import { getItemLocalStorage } from 'src/app/shared/utils/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -30,18 +32,19 @@ export class MapPage {
   };
   filteredUsers: User[] = [];
   points: Marker[] = [];
-  currentTab: 'map' | 'list' = 'list';
+  currentTab: 'map' | 'list' = 'map';
 
   constructor(
     private readonly loadingCtrl: LoadingController,
     private readonly popoverController: PopoverController,
     private usersService: UsersService,
     private locationService: LocationService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) {}
 
   ionViewWillEnter() {
-    this.getLocation();
+    this.filteredUsers = [];
   }
 
   async getLocation() {
@@ -58,6 +61,7 @@ export class MapPage {
       const marker = new Marker({
         position: this.center,
       });
+      marker.user = JSON.parse(getItemLocalStorage('user'));
       this.points.push(marker);
     }
   }
@@ -109,9 +113,6 @@ export class MapPage {
             },
           };
           marker.setOptions(markerOptions);
-          marker.addListener('click', () => {
-            console.log('prova');
-          });
           marker.user = user;
           if (marker) {
             this.points.push(marker);
@@ -153,8 +154,9 @@ export class MapPage {
     return filterString;
   }
 
-  prova(point: any) {
+  prova(point: Marker) {
     console.log(point.user);
+    this.router.navigate(['/private/profile'], { queryParams: { id: point.user.id } });
   }
 
   toggleView() {

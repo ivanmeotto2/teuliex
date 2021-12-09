@@ -4,32 +4,33 @@
       <div class="img-div">
         <input #imgInput type="file" accept="image/*" id="profileImage" hidden (input)="changeImage($event)" />
         <img [src]="tempUser.imgUrl" />
-        <ion-icon size="large" name="camera" (click)="imgInput.click()"></ion-icon>
+        <ion-icon [hidden]="checkDisabled()" size="large" name="camera" (click)="imgInput.click()"></ion-icon>
       </div>
     </ion-row>
     <ion-item-group class="ion-margin-top">
       <ion-item>
         <ion-label position="stacked">Nome</ion-label>
-        <ion-input [(ngModel)]="tempUser.nome"></ion-input>
+        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.nome"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Cognome</ion-label>
-        <ion-input [(ngModel)]="tempUser.cognome"></ion-input>
+        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.cognome"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="tempUser.email" disabled></ion-input>
+        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.email" disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Data di nascita</ion-label>
-        <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="tempUser.dataNascita">
+        <ion-datetime [disabled]="checkDisabled()" pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY"
+          [(ngModel)]="tempUser.dataNascita">
         </ion-datetime>
       </ion-item>
       <div class="autocomplete-div">
         <ion-item class="searchbar-container">
           <ion-label position="stacked">Località</ion-label>
-          <ion-input (ionFocus)="setIsLocationSelected(true)" (ionChange)="searchForAddress()" debounce="1000"
-            [(ngModel)]="autocompleteLocation.input"></ion-input>
+          <ion-input [disabled]="checkDisabled()" (ionFocus)="setIsLocationSelected(true)"
+            (ionChange)="searchForAddress()" debounce="1000" [(ngModel)]="autocompleteLocation.input"></ion-input>
         </ion-item>
         <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || !isLocationSelected">
           <ion-item *ngFor="let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
@@ -38,13 +39,13 @@
       </div>
       <ion-item>
         <ion-label position="stacked">Lavoro</ion-label>
-        <ion-input [(ngModel)]="tempUser.lavoro"></ion-input>
+        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.lavoro"></ion-input>
       </ion-item>
       <div class="autocomplete-div">
         <ion-item class="searchbar-container">
           <ion-label position="stacked">Indirizzo spedizione calendario</ion-label>
-          <ion-input (ionFocus)="setIsLocationSelected(false)" (ionChange)="searchForAddress()" debounce="1000"
-            [(ngModel)]="autocompleteCalendar.input"></ion-input>
+          <ion-input [disabled]="checkDisabled()" (ionFocus)="setIsLocationSelected(false)"
+            (ionChange)="searchForAddress()" debounce="1000" [(ngModel)]="autocompleteCalendar.input"></ion-input>
         </ion-item>
         <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || isLocationSelected">
           <ion-item *ngFor=" let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
@@ -53,9 +54,10 @@
       </div>
       <ion-item>
         <ion-label>Fatti Trovare</ion-label>
-        <ion-toggle color="primary" [(ngModel)]="tempUser.fattiTrovare"></ion-toggle>
+        <ion-toggle [disabled]="checkDisabled()" color="primary" [(ngModel)]="tempUser.fattiTrovare"></ion-toggle>
       </ion-item>
-      <ion-button class="ion-margin-top ion-justify-content-center button" expand="block" (click)="updateProfile()">
+      <ion-button [hidden]="checkDisabled()" class="ion-margin-top ion-justify-content-center button" expand="block"
+        (click)="updateProfile()">
         Salva modifiche</ion-button>
     </ion-item-group>
   </ion-item-group>

@@ -20,8 +20,10 @@
 
 ion-content {
   width: 100%;
+
   ion-item-group {
     margin: auto;
+    margin-bottom: 5%;
   }
   ion-item {
     width: 100%;
@@ -36,7 +38,6 @@ ion-content {
   width: 60%;
   margin: auto;
   margin-top: 5%;
-  margin-bottom: 5%;
 }
 
 .autocomplete-div {
