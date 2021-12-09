@@ -5,7 +5,7 @@
     </ion-fab-button>
   </ion-fab>
   <span *ngIf="currentTab === 'map'">
-    <google-map #map height="100%" width="100%" [center]="center" [zoom]="6" [options]="mapOptions">
+    <google-map #map height="100%" width="100%" [center]="center" [zoom]="5" [options]="mapOptions">
       <span *ngIf="points">
         <map-marker *ngFor="let point of points" (mapClick)="openProfile(point.user.id)"
           [position]="point.getPosition()">
