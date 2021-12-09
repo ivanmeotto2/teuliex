@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from '../../../shared/utils/utils';
-import { AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { AlertController, ToastController, LoadingController, ModalController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocationService } from '../../../shared/services/location.service';
 
@@ -20,7 +20,7 @@ export class ProfilePage {
   locationSelected: boolean = false;
   addressSelected: boolean = false;
   isLocationSelected: boolean = false;
-  id: string = '';
+  @Input() id: string = '';
   enteredProfile: boolean = true;
 
   constructor(
@@ -28,9 +28,9 @@ export class ProfilePage {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
+    private modalController: ModalController,
     private router: Router,
-    private locationService: LocationService,
-    private activatedRoute: ActivatedRoute
+    private locationService: LocationService
   ) {
     this.autocompleteLocation = { input: this.user.localita };
     this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
@@ -45,22 +45,19 @@ export class ProfilePage {
       message: 'Retrieving user info',
     });
     await loading.present();
-    await this.activatedRoute.queryParams.forEach(async (params) => {
-      if (params.id) {
-        this.id = params.id;
-        this.user = await this.usersService.retrieveOne(params.id);
-        this.tempUser = await this.usersService.retrieveOne(params.id);
-      } else {
-        this.user = JSON.parse(getItemLocalStorage('user'));
-        this.tempUser = JSON.parse(getItemLocalStorage('user'));
-        this.id = '';
-      }
-      await loading.dismiss();
-      this.autocompleteLocation = { input: this.user.localita };
-      this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
-      if (this.autocompleteCalendar) this.addressSelected = true;
-      if (this.autocompleteLocation) this.locationSelected = true;
-    });
+    if (this.id) {
+      this.user = await this.usersService.retrieveOne(this.id);
+      this.tempUser = await this.usersService.retrieveOne(this.id);
+    } else {
+      this.user = JSON.parse(getItemLocalStorage('user'));
+      this.tempUser = JSON.parse(getItemLocalStorage('user'));
+      this.id = '';
+    }
+    await loading.dismiss();
+    this.autocompleteLocation = { input: this.user.localita };
+    this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
+    if (this.autocompleteCalendar) this.addressSelected = true;
+    if (this.autocompleteLocation) this.locationSelected = true;
   }
 
   setIsLocationSelected(value: boolean) {
@@ -160,5 +157,9 @@ export class ProfilePage {
       this.addressSelected = true;
     }
     this.autocompleteItems = [];
+  }
+
+  async closeProfileModal() {
+    await this.modalController.dismiss();
   }
 }

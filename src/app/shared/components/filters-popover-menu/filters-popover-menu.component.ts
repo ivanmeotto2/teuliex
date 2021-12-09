@@ -1,7 +1,7 @@
-import { Component, NgZone, Output, EventEmitter, Input } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
-import { LocationService } from '../../services/location.service';
+import { Component, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { FiltersInterface } from '../../interfaces/filters';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'app-filters-popover-menu',
@@ -15,7 +15,7 @@ export class FiltersPopoverMenuComponent {
   autocompleteItems: any[];
   addressSelected: boolean = false;
 
-  constructor(private readonly popoverController: PopoverController, private locationService: LocationService) {
+  constructor(private readonly modalController: ModalController, private locationService: LocationService) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
@@ -58,6 +58,6 @@ export class FiltersPopoverMenuComponent {
 
   async closePopover(value: boolean) {
     this.filters.toFilter = value;
-    await this.popoverController.dismiss();
+    await this.modalController.dismiss();
   }
 }

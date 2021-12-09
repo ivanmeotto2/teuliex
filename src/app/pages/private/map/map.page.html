@@ -7,7 +7,8 @@
   <span *ngIf="currentTab === 'map'">
     <google-map #map height="100%" width="100%" [center]="center" [zoom]="6" [options]="mapOptions">
       <span *ngIf="points">
-        <map-marker *ngFor="let point of points" (mapClick)="openProfile(point)" [position]="point.getPosition()">
+        <map-marker *ngFor="let point of points" (mapClick)="openProfile(point.user.id)"
+          [position]="point.getPosition()">
           <map-info-window></map-info-window>
         </map-marker>
       </span>
@@ -27,7 +28,7 @@
             <ion-text>{{user.localita}}</ion-text>
             <ion-text>{{user.professione}}</ion-text>
           </ion-list>
-          <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+          <ion-icon (click)="openProfile(user.id)" name="chevron-forward-outline" slot="end"></ion-icon>
         </ion-item>
       </ion-list>
     </span>

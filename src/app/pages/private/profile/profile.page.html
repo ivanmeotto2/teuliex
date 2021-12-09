@@ -1,5 +1,11 @@
 <ion-content>
   <ion-item-group>
+    <ion-row [hidden]="!id">
+      <ion-toolbar>
+        <ion-icon class="ion-margin" slot="end" size="large" name="close-outline" (click)="closeProfileModal()">
+        </ion-icon>
+      </ion-toolbar>
+    </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center">
       <div class="img-div">
         <input #imgInput type="file" accept="image/*" id="profileImage" hidden (input)="changeImage($event)" />

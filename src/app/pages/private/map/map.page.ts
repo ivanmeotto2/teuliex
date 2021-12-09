@@ -1,13 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { Router } from '@angular/router';
-import { LoadingController, PopoverController, ToastController } from '@ionic/angular';
+import { LoadingController, ModalController, PopoverController, ToastController } from '@ionic/angular';
 import { Marker } from 'src/app/shared/interfaces/marker';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { FiltersPopoverMenuComponent } from '../../../shared/components/filters-popover-menu/filters-popover-menu.component';
 import { FiltersInterface } from '../../../shared/interfaces/filters';
 import { LocationService } from '../../../shared/services/location.service';
+import { ProfilePage } from '../profile/profile.page';
 
 @Component({
   selector: 'app-map',
@@ -36,7 +37,7 @@ export class MapPage {
 
   constructor(
     private readonly loadingCtrl: LoadingController,
-    private readonly popoverController: PopoverController,
+    private readonly modalController: ModalController,
     private usersService: UsersService,
     private locationService: LocationService,
     private toastController: ToastController,
@@ -73,7 +74,7 @@ export class MapPage {
       address: '',
       toFilter: false,
     };
-    const popover = await this.popoverController.create({
+    const popover = await this.modalController.create({
       component: FiltersPopoverMenuComponent,
       cssClass: 'filter-popover',
       componentProps: {
@@ -162,9 +163,14 @@ export class MapPage {
     return filterString;
   }
 
-  openProfile(point: Marker) {
-    console.log(point.user);
-    this.router.navigate(['/private/profile'], { queryParams: { id: point.user.id } });
+  async openProfile(id: string) {
+    const modal = await this.modalController.create({
+      component: ProfilePage,
+      componentProps: {
+        id,
+      },
+    });
+    await modal.present();
   }
 
   toggleView() {
