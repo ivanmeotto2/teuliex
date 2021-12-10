@@ -2,11 +2,17 @@ ion-item {
   display: flex;
   flex-direction: row;
   ion-img {
-    max-width: 10%;
+    max-width: 30%;
     aspect-ratio: 1;
   }
   ion-list {
     display: flex;
     flex-direction: column;
   }
+}
+
+ion-toolbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

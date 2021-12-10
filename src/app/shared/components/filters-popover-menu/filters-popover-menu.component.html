@@ -12,7 +12,7 @@
     <ion-row class="ion-margin-top ion-justify-content-center autocomplete-div">
       <ion-item class="searchbar-container">
         <ion-label position="stacked">Località</ion-label>
-        <ion-input autocomplete="off" [(ngModel)]="autocomplete.input" (ionChange)="autocompleteAddress()"
+        <ion-input autocomplete="street-address" [(ngModel)]="autocomplete.input" (ionChange)="autocompleteAddress()"
           debounce="1000">
         </ion-input>
       </ion-item>
