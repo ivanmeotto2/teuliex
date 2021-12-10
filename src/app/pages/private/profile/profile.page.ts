@@ -54,6 +54,8 @@ export class ProfilePage {
       this.id = '';
     }
     await loading.dismiss();
+    if (this.id && !this.tempUser.mostraEmail) this.tempUser.email = '<NASCOSTO>';
+    if (this.id && !this.tempUser.mostraNumTel) this.tempUser.cellulare = '<NASCOSTO>';
     this.autocompleteLocation = { input: this.user.localita };
     this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
     if (this.autocompleteCalendar) this.addressSelected = true;
@@ -161,5 +163,21 @@ export class ProfilePage {
 
   async closeProfileModal() {
     await this.modalController.dismiss();
+  }
+
+  checkButtonDisabled() {
+    if (
+      this.user.imgUrl === this.tempUser.imgUrl &&
+      this.user.nome === this.tempUser.nome &&
+      this.user.cognome === this.tempUser.cognome &&
+      this.user.email === this.tempUser.email &&
+      this.user.cellulare === this.tempUser.cellulare &&
+      this.user.dataNascita === this.tempUser.dataNascita &&
+      this.user.localita === this.tempUser.localita &&
+      this.user.professione === this.tempUser.professione &&
+      this.user.indirizzoSpedizione == this.tempUser.indirizzoSpedizione
+    ) {
+      return true;
+    } else return false;
   }
 }

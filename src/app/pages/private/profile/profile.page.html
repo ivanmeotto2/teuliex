@@ -28,6 +28,10 @@
         <ion-input disabled [(ngModel)]="tempUser.email" disabled></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label position="stacked">Cellulare</ion-label>
+        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.cellulare" disabled></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label position="stacked">Data di nascita</ion-label>
         <ion-datetime disabled pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="tempUser.dataNascita">
         </ion-datetime>
@@ -58,8 +62,8 @@
           </ion-item>
         </ion-list>
       </div>
-      <ion-button [hidden]="checkDisabled()" class="ion-margin-top ion-justify-content-center button" expand="block"
-        (click)="updateProfile()">
+      <ion-button [hidden]="checkDisabled()" [disabled]="checkButtonDisabled()"
+        class="ion-margin-top ion-justify-content-center button" expand="block" (click)="updateProfile()">
         Salva modifiche</ion-button>
     </ion-item-group>
   </ion-item-group>
