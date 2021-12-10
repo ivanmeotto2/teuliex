@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, ViewChild } from '@angular/core';
+import { AnimationController, IonIcon, ToastController } from '@ionic/angular';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from '../../../shared/utils/utils';
@@ -11,6 +11,7 @@ import { SETTINGS } from 'src/app/shared/constants/consts';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage {
+  @ViewChild(IonIcon) chevron: IonIcon;
   user: User = new User();
   oldSettings = {
     notifichePush: false,
@@ -26,7 +27,7 @@ export class SettingsPage {
     fattiTrovare: false,
   };
 
-  constructor(private usersService: UsersService, private toastController: ToastController) {}
+  constructor(private usersService: UsersService, private toastController: ToastController, private animationController: AnimationController) {}
 
   ionViewWillEnter() {
     Object.assign(this.user, JSON.parse(getItemLocalStorage('user')));
@@ -81,12 +82,5 @@ export class SettingsPage {
     };
     removeItemLocalStorage('user');
     setItemLocalStorage('user', JSON.stringify(this.user));
-  }
-
-  toggleInfo(value: boolean) {
-    console.log(value);
-    if (value === true) value = false;
-    else value = true;
-    console.log(value);
   }
 }

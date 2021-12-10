@@ -25,12 +25,11 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.email" disabled></ion-input>
+        <ion-input disabled [(ngModel)]="tempUser.email" disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Data di nascita</ion-label>
-        <ion-datetime [disabled]="checkDisabled()" pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY"
-          [(ngModel)]="tempUser.dataNascita">
+        <ion-datetime disabled pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="tempUser.dataNascita">
         </ion-datetime>
       </ion-item>
       <div class="autocomplete-div">

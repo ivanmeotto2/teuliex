@@ -37,7 +37,7 @@ export class User implements UserInterface {
   password: string = '';
   role: string = '';
 
-  constructor(res?: User) {
+  constructor(res?: any) {
     Object.assign(this, res);
   }
 }

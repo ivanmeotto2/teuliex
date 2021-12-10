@@ -9,6 +9,7 @@ import { FiltersPopoverMenuComponent } from '../../../shared/components/filters-
 import { FiltersInterface } from '../../../shared/interfaces/filters';
 import { LocationService } from '../../../shared/services/location.service';
 import { ProfilePage } from '../profile/profile.page';
+import { getItemLocalStorage } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-map',
@@ -18,6 +19,7 @@ import { ProfilePage } from '../profile/profile.page';
 export class MapPage {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
+  currentUser: User = new User();
   bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds();
   center: google.maps.LatLng = new google.maps.LatLng(0, 0);
   mapOptions: google.maps.MapOptions = {
@@ -40,30 +42,25 @@ export class MapPage {
     private readonly modalController: ModalController,
     private usersService: UsersService,
     private locationService: LocationService,
-    private toastController: ToastController,
-    private router: Router
+    private toastController: ToastController
   ) {}
 
   async ionViewWillEnter() {
     this.filteredUsers = [];
     await this.filterMap();
+    this.currentUser = JSON.parse(getItemLocalStorage('user'));
   }
 
   async getLocation() {
-    if (this.map.tilesloaded) {
-      const loading = await this.loadingCtrl.create({
-        message: 'Retrieving user position...',
+    const loading = await this.loadingCtrl.create({
+      message: 'Retrieving user position...',
+    });
+    await loading.present();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        await loading.dismiss();
       });
-      await loading.present();
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-          this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          this.bounds.extend(this.center);
-          await loading.dismiss();
-        });
-        this.map.zoom = 7;
-        this.map.fitBounds(this.bounds);
-      }
     }
   }
 

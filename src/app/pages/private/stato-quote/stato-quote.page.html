@@ -1,7 +1,49 @@
 <ion-content>
-
   <ion-title class="ion-text-center ion-margin">Stato quote: <span
       [class]="user.quoteInRegola ? 'in-regola' : 'non-in-regola'">
       {{user.quoteInRegola ? 'In regola' : 'Non in regola'}}</span></ion-title>
 
+  <ion-list class="ion-margin">
+    <ion-item>
+      <ion-row>
+        <ion-col size="7">
+          <ion-title>Quota 1</ion-title>
+          <ion-card-subtitle>01/01/1991</ion-card-subtitle>
+          <ion-text>Descrizione quota</ion-text>
+        </ion-col>
+        <ion-col size="5" class="importo">€ 500,00</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col size="7">
+          <ion-title>Quota 2</ion-title>
+          <ion-card-subtitle>29/10/1998</ion-card-subtitle>
+          <ion-text>Descrizione quota</ion-text>
+        </ion-col>
+        <ion-col size="5" class="importo">€ 1000,00</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col size="7">
+          <ion-title>Quota 3</ion-title>
+          <ion-card-subtitle>19/04/2011</ion-card-subtitle>
+          <ion-text>Descrizione quota</ion-text>
+        </ion-col>
+        <ion-col size="5" class="importo">€ 2,00</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col size="7">
+          <ion-title>Quota 4</ion-title>
+          <ion-card-subtitle>01/06/2019</ion-card-subtitle>
+          <ion-text>Descrizione quota</ion-text>
+        </ion-col>
+        <ion-col size="5" class="importo">€ 200,00</ion-col>
+      </ion-row>
+    </ion-item>
+
+  </ion-list>
 </ion-content>
