@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/shared/interfaces/user';
+import { User } from '../../shared/interfaces/user';
 import { AlertController } from '@ionic/angular';
-import { UsersApiService } from 'src/app/api/users-api.service';
+import { UsersApiService } from '../../api/users-api.service';
 
 @Injectable({
   providedIn: 'root',
