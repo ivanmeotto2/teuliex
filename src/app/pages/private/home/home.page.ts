@@ -3,9 +3,6 @@ import { Router } from '@angular/router';
 import { IonicSlides, LoadingController } from '@ionic/angular';
 import { News } from 'src/app/shared/interfaces/news';
 import { NewsService } from 'src/app/shared/services/news.service';
-import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar } from 'swiper';
-
-SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, IonicSlides]);
 
 @Component({
   selector: 'app-home',
@@ -17,11 +14,7 @@ export class HomePage {
   latestNews: News[] = new Array<News>();
   defaultImage: string;
   loading: HTMLIonLoadingElement;
-  constructor(
-    private router: Router,
-    private newsService: NewsService,
-    private loadingCtrl: LoadingController
-  ) {
+  constructor(private router: Router, private newsService: NewsService, private loadingCtrl: LoadingController) {
     this.defaultImage = './../../../../assets/images/no_image.jpeg';
   }
 

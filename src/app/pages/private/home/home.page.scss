@@ -42,17 +42,6 @@ ion-grid {
 }
 
 @media screen and (max-width: 425px) {
-  .swiper {
-    width: 90%;
-    ion-card {
-      ion-card-content {
-        p {
-          -webkit-line-clamp: 3;
-        }
-      }
-    }
-  }
-
   .news-card {
     ion-card-content {
       p {
