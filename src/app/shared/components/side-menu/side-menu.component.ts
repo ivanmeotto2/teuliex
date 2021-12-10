@@ -55,23 +55,43 @@ export class SideMenuComponent implements OnInit {
     await this.menuController.close('main-menu');
   }
 
-  async alert() {
-    const alert = await this.alertController.create({
-      header: 'Attenzione',
-      message: 'Per accedere a questa pagina è necessario il login. Clicca qui per andare alla schermata di accesso',
-      buttons: [
-        {
-          text: 'Vai al login',
-          handler: () => {
-            this.handleNavigation(['auth', 'login'], 'login');
+  async alert(option: any) {
+    let alert: any;
+    if (!this.user && option.needsLogin) {
+      alert = await this.alertController.create({
+        header: 'Attenzione',
+        message: 'Per accedere a questa pagina è necessario il login. Clicca qui per andare alla schermata di accesso',
+        buttons: [
+          {
+            text: 'Vai al login',
+            handler: () => {
+              this.handleNavigation(['auth', 'login'], 'login');
+            },
           },
-        },
-        {
-          text: 'Annulla',
-          role: 'cancel',
-        },
-      ],
-    });
+          {
+            text: 'Annulla',
+            role: 'cancel',
+            handler: () => {
+              this.menuController.close();
+            },
+          },
+        ],
+      });
+    } else {
+      alert = await this.alertController.create({
+        header: 'Attenzione',
+        message: 'Per accedere a questa pagina è necessario essere in regola con i pagamenti delle quote',
+        buttons: [
+          {
+            text: 'Ok',
+            role: 'cancel',
+            handler: () => {
+              this.menuController.close();
+            },
+          },
+        ],
+      });
+    }
     await alert.present();
   }
 }

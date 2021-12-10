@@ -16,7 +16,24 @@
   color: grey;
 }
 
+ion-avatar {
+  display: flex;
+  justify-content: flex-start;
+  width: fit-content;
+  img {
+    height: 32px;
+    width: 32px;
+    margin: auto;
+  }
+}
+
 .profile-div {
   display: flex;
   flex-direction: column;
+  max-width: 80%;
+  .profile-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

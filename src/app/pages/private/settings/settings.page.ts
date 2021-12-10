@@ -38,7 +38,6 @@ export class SettingsPage {
       fattiTrovare: this.user.fattiTrovare.valueOf(),
     };
     Object.assign(this.settings, SETTINGS);
-    console.log(this.settings);
   }
 
   checkDisabled() {

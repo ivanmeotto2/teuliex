@@ -16,36 +16,42 @@ export const MENU_OPTIONS = [
     path: '/private/home',
     icon: 'newspaper-outline',
     needsLogin: false,
+    needsQuoteInRegola: false,
   },
   {
     name: 'Trova ex allievo',
     path: '/private/map',
     icon: 'map-outline',
     needsLogin: true,
+    needsQuoteInRegola: true,
   },
   {
     name: 'Tessera ex allievo',
     path: '/private/card',
     icon: 'card-outline',
     needsLogin: true,
+    needsQuoteInRegola: true,
   },
   {
     name: 'Impostazioni',
     path: '/private/settings',
     icon: 'settings-outline',
     needsLogin: true,
+    needsQuoteInRegola: false,
   },
   {
     name: 'Stato quote',
     path: '/private/stato-quote',
     icon: 'document-text-outline',
     needsLogin: true,
+    needsQuoteInRegola: false,
   },
   {
     name: 'Crediti',
     path: '/private/credits',
     icon: 'brush-outline',
     needsLogin: false,
+    needsQuoteInRegola: false,
   },
 ];
 
