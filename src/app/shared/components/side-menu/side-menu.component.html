@@ -15,11 +15,6 @@
       <ion-text class="ion-margin-start">{{option.name}}</ion-text>
       <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="user" lines="none" (click)="handleNavigation(['auth','login'])">
-      <ion-icon name="log-out-outline" size="large"></ion-icon>
-      <ion-text class="ion-margin-start">Logout</ion-text>
-      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-    </ion-item>
     <ion-item *ngIf="user" lines="none" (click)="handleNavigation(['/private/profile'], 'Profilo')">
       <ion-avatar>
         <img [src]="user.imgUrl" />
@@ -28,6 +23,11 @@
         <ion-text class="ion-margin-start">Profilo</ion-text>
         <ion-text class="ion-margin-start"><b>{{user.nome + ' ' + user.cognome | uppercase}}</b></ion-text>
       </div>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="user" lines="none" (click)="handleNavigation(['auth','login'])">
+      <ion-icon name="log-out-outline" size="large"></ion-icon>
+      <ion-text class="ion-margin-start">Logout</ion-text>
       <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
     </ion-item>
   </ion-list>
