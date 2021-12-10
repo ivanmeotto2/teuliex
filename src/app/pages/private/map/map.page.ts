@@ -140,9 +140,11 @@ export class MapPage {
         ],
       });
       await toast.present();
+      // await this.getLocation();
+    } else {
+      this.center = this.bounds.getCenter();
+      if (this.filteredUsers.length > 1) this.map.fitBounds(this.bounds);
     }
-    this.center = this.bounds.getCenter();
-    if (this.filteredUsers.length > 1) this.map.fitBounds(this.bounds);
   }
 
   composeFilterString() {

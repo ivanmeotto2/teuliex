@@ -17,30 +17,30 @@
     <ion-item-group class="ion-margin-top">
       <ion-item>
         <ion-label position="stacked">Nome</ion-label>
-        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.nome"></ion-input>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.nome"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Cognome</ion-label>
-        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.cognome"></ion-input>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.cognome"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="id && tempUser.mostraEmail">
         <ion-label position="stacked">Email</ion-label>
-        <ion-input disabled [(ngModel)]="tempUser.email" disabled></ion-input>
+        <ion-input readonly [(ngModel)]="tempUser.email"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="id && tempUser.mostraNumTel">
         <ion-label position="stacked">Cellulare</ion-label>
-        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.cellulare" disabled></ion-input>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.cellulare"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Data di nascita</ion-label>
-        <ion-datetime disabled pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="tempUser.dataNascita">
+        <ion-datetime readonly pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="tempUser.dataNascita">
         </ion-datetime>
       </ion-item>
       <div class="autocomplete-div">
         <ion-item class="searchbar-container">
           <ion-label position="stacked">Località</ion-label>
-          <ion-input [disabled]="checkDisabled()" (ionFocus)="setIsLocationSelected(true)"
-            (ionChange)="searchForAddress()" debounce="1000" [(ngModel)]="autocompleteLocation.input"></ion-input>
+          <ion-input [readonly]="checkDisabled()" (ionFocus)="setIsLocationSelected(true)"
+            (ionChange)="searchForAddress()" debounce="500" [(ngModel)]="autocompleteLocation.input"></ion-input>
         </ion-item>
         <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || !isLocationSelected">
           <ion-item *ngFor="let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
@@ -49,13 +49,13 @@
       </div>
       <ion-item>
         <ion-label position="stacked">Professione</ion-label>
-        <ion-input [disabled]="checkDisabled()" [(ngModel)]="tempUser.professione"></ion-input>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.professione"></ion-input>
       </ion-item>
-      <div class="autocomplete-div">
+      <div class="autocomplete-div" *ngIf="!id">
         <ion-item class="searchbar-container">
           <ion-label position="stacked">Indirizzo spedizione calendario</ion-label>
-          <ion-input [disabled]="checkDisabled()" (ionFocus)="setIsLocationSelected(false)"
-            (ionChange)="searchForAddress()" debounce="1000" [(ngModel)]="autocompleteCalendar.input"></ion-input>
+          <ion-input [readonly]="checkDisabled()" (ionFocus)="setIsLocationSelected(false)"
+            (ionChange)="searchForAddress()" debounce="500" [(ngModel)]="autocompleteCalendar.input"></ion-input>
         </ion-item>
         <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || isLocationSelected">
           <ion-item *ngFor=" let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}

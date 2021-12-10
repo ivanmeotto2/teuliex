@@ -54,8 +54,6 @@ export class ProfilePage {
       this.id = '';
     }
     await loading.dismiss();
-    if (this.id && !this.tempUser.mostraEmail) this.tempUser.email = '<NASCOSTO>';
-    if (this.id && !this.tempUser.mostraNumTel) this.tempUser.cellulare = '<NASCOSTO>';
     this.autocompleteLocation = { input: this.user.localita };
     this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
     if (this.autocompleteCalendar) this.addressSelected = true;

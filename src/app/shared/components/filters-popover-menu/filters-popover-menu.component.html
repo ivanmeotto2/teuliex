@@ -13,7 +13,7 @@
       <ion-item class="searchbar-container">
         <ion-label position="stacked">Località</ion-label>
         <ion-input autocomplete="street-address" [(ngModel)]="autocomplete.input" (ionChange)="autocompleteAddress()"
-          debounce="1000">
+          debounce="500">
         </ion-input>
       </ion-item>
       <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0">

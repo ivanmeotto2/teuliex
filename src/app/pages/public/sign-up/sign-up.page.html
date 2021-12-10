@@ -67,7 +67,7 @@
     <ion-row class="ion-margin-top ion-justify-content-center input-row autocomplete-div">
       <ion-item class="searchbar-container">
         <ion-label position="stacked">Località <span>*</span></ion-label>
-        <ion-input (ionFocus)="setIsLocationSelected(true)" (ionChange)="searchForAddress()" debounce="1000"
+        <ion-input (ionFocus)="setIsLocationSelected(true)" (ionChange)="searchForAddress()" debounce="500"
           [(ngModel)]="autocompleteLocation.input"></ion-input>
       </ion-item>
       <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || !isLocationSelected">
@@ -78,7 +78,7 @@
     <ion-row class="ion-margin-top ion-justify-content-center input-row autocomplete-div">
       <ion-item class="searchbar-container">
         <ion-label position="stacked">Indirizzo spedizione calendario <span>*</span></ion-label>
-        <ion-input (ionFocus)="setIsLocationSelected(false)" (ionChange)="searchForAddress()" debounce="1000"
+        <ion-input (ionFocus)="setIsLocationSelected(false)" (ionChange)="searchForAddress()" debounce="500"
           [(ngModel)]="autocompleteCalendar.input"></ion-input>
       </ion-item>
       <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || isLocationSelected">
