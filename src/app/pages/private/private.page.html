@@ -9,6 +9,8 @@
         </ion-button>
       </div>
     </ion-row>
+    <ion-icon name="options-outline" class="ion-margin-end" *ngIf="selectedTab == 'Trova ex allievo'" slot="end"
+      size="large" (click)="openFilters()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 

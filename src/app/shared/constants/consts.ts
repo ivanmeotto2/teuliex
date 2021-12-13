@@ -1,6 +1,6 @@
 export enum TABS_NAME {
   home = 'News',
-  map = 'Trova allievo',
+  map = 'Trova ex allievo',
   card = 'Tessera ex allievo',
   settings = 'Impostazioni',
   profile = 'Profilo',

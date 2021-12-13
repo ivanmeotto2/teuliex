@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from 'src/app/shared/utils/utils';
 import { TabNamePipe } from '../../shared/pipes/tab-name.pipe';
 import { Router } from '@angular/router';
+import { FiltersInterface } from '../../shared/interfaces/filters';
+import { FiltersService } from 'src/app/shared/services/filters.service';
+import { FiltersPopoverMenuComponent } from 'src/app/shared/components/filters-popover-menu/filters-popover-menu.component';
 
 @Component({
   selector: 'app-private',
@@ -14,9 +17,27 @@ import { Router } from '@angular/router';
 export class PrivatePage {
   location: Location = window.location;
   selectedTab: string;
-
-  constructor(private menuController: MenuController, private router: Router, private usersService: UsersService) {}
+  filters: FiltersInterface = {
+    surname: '',
+    job: '',
+    address: '',
+    toFilter: false,
+    aroundMe: false,
+    searchRadius: 0,
+  };
   user: User = new User();
+
+  constructor(
+    private menuController: MenuController,
+    private router: Router,
+    private usersService: UsersService,
+    private filtersService: FiltersService,
+    private modalController: ModalController
+  ) {
+    filtersService.filters.subscribe((filtersValue) => {
+      this.filters = filtersValue;
+    });
+  }
 
   async ionViewWillEnter() {
     const id = JSON.parse(getItemLocalStorage('user')).id;
@@ -41,5 +62,28 @@ export class PrivatePage {
 
   async openSideMenu() {
     this.menuController.enable(true, 'main-menu').then(() => this.menuController.open('main-menu'));
+  }
+
+  async openFilters() {
+    this.filters = {
+      surname: '',
+      job: '',
+      address: '',
+      toFilter: false,
+      aroundMe: false,
+      searchRadius: 0,
+    };
+    const modal = await this.modalController.create({
+      component: FiltersPopoverMenuComponent,
+      cssClass: 'filter-popover',
+      componentProps: {
+        filters: this.filters,
+      },
+    });
+    await modal.present();
+    await modal.onDidDismiss();
+    // if ((this.filters.job || this.filters.surname || this.filters.address || this.filters.aroundMe) && this.filters.toFilter) {
+    //   this.filterMap();
+    // }
   }
 }

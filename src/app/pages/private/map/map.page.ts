@@ -10,6 +10,7 @@ import { FiltersPopoverMenuComponent } from '../../../shared/components/filters-
 import { FiltersInterface } from '../../../shared/interfaces/filters';
 import { LocationService } from '../../../shared/services/location.service';
 import { ProfilePage } from '../profile/profile.page';
+import { FiltersService } from 'src/app/shared/services/filters.service';
 
 @Component({
   selector: 'app-map',
@@ -45,8 +46,18 @@ export class MapPage {
     private readonly modalController: ModalController,
     private usersService: UsersService,
     private locationService: LocationService,
-    private toastController: ToastController
-  ) {}
+    private toastController: ToastController,
+    private filtersService: FiltersService
+  ) {
+    this.filtersService.filters.subscribe(async (value) => {
+      this.filters = value;
+      const modal = await this.modalController.getTop();
+      if (modal) await modal.onDidDismiss();
+      if ((this.filters.job || this.filters.surname || this.filters.address || this.filters.aroundMe) && this.filters.toFilter) {
+        this.filterMap();
+      }
+    });
+  }
 
   async ionViewWillEnter() {
     this.filters = {
@@ -98,9 +109,6 @@ export class MapPage {
     });
     await modal.present();
     await modal.onDidDismiss();
-    if ((this.filters.job || this.filters.surname || this.filters.address || this.filters.aroundMe) && this.filters.toFilter) {
-      this.filterMap();
-    }
   }
 
   async filterMap() {
