@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NewsApiService } from '../../api/news-api.service';
+import { News } from 'src/app/shared/interfaces/news';
 
 @Injectable({
   providedIn: 'root',
@@ -7,13 +8,8 @@ import { NewsApiService } from '../../api/news-api.service';
 export class NewsService {
   constructor(private newsApiService: NewsApiService) {}
 
-  async getAllNews() {
-    const retrievedNews = await this.newsApiService.getAllNews();
-    return retrievedNews;
-  }
-
-  async getLatestNews(count: number) {
-    const retrievedNews = await this.newsApiService.getLatestNews(count);
+  async getAllNews(page: number): Promise<News[]> {
+    const retrievedNews = (await this.newsApiService.getAllNews(page)) as News[];
     return retrievedNews;
   }
 

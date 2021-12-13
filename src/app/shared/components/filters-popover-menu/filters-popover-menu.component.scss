@@ -28,6 +28,16 @@ ion-button {
   }
 }
 
+.slider-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  ion-text {
+    width: 15%;
+    text-align: end;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .autocomplete-div {
     .places-autocomplete {
@@ -44,6 +54,12 @@ ion-button {
       ion-item {
         font-size: 12px;
       }
+    }
+  }
+
+  .slider-container {
+    ion-text {
+      width: 25%;
     }
   }
 }

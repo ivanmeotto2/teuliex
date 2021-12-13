@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
-import { Router } from '@angular/router';
-import { LoadingController, ModalController, PopoverController, ToastController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { LatLng } from 'ngx-google-places-autocomplete/objects/latLng';
 import { Marker } from 'src/app/shared/interfaces/marker';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
+import { getItemLocalStorage } from 'src/app/shared/utils/utils';
 import { FiltersPopoverMenuComponent } from '../../../shared/components/filters-popover-menu/filters-popover-menu.component';
 import { FiltersInterface } from '../../../shared/interfaces/filters';
 import { LocationService } from '../../../shared/services/location.service';
 import { ProfilePage } from '../profile/profile.page';
-import { getItemLocalStorage } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-map',
@@ -32,10 +32,13 @@ export class MapPage {
     job: '',
     address: '',
     toFilter: false,
+    aroundMe: false,
+    searchRadius: 0,
   };
   filteredUsers: User[] = [];
   points: Marker[] = [];
   currentTab: 'map' | 'list' = 'map';
+  trueCenter: google.maps.LatLng;
 
   constructor(
     private readonly loadingCtrl: LoadingController,
@@ -46,20 +49,33 @@ export class MapPage {
   ) {}
 
   async ionViewWillEnter() {
+    this.filters = {
+      surname: '',
+      job: '',
+      address: '',
+      toFilter: false,
+      aroundMe: false,
+      searchRadius: 0,
+    };
     this.filteredUsers = [];
+    await this.getLocation(false, false);
     await this.filterMap();
     this.currentUser = JSON.parse(getItemLocalStorage('user'));
   }
 
-  async getLocation() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Retrieving user position...',
-    });
-    await loading.present();
+  async getLocation(toLoad: boolean, setCenter: boolean) {
+    let loading: HTMLIonLoadingElement;
+    if (toLoad) {
+      loading = await this.loadingCtrl.create({
+        message: 'Retrieving user position...',
+      });
+      await loading.present();
+    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        await loading.dismiss();
+        if (toLoad) await loading.dismiss();
+        if (setCenter) this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        this.trueCenter = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       });
     }
   }
@@ -70,17 +86,19 @@ export class MapPage {
       job: '',
       address: '',
       toFilter: false,
+      aroundMe: false,
+      searchRadius: 0,
     };
-    const popover = await this.modalController.create({
+    const modal = await this.modalController.create({
       component: FiltersPopoverMenuComponent,
       cssClass: 'filter-popover',
       componentProps: {
         filters: this.filters,
       },
     });
-    await popover.present();
-    await popover.onDidDismiss();
-    if ((this.filters.job || this.filters.surname || this.filters.address) && this.filters.toFilter) {
+    await modal.present();
+    await modal.onDidDismiss();
+    if ((this.filters.job || this.filters.surname || this.filters.address || this.filters.aroundMe) && this.filters.toFilter) {
       this.filterMap();
     }
   }
@@ -98,27 +116,33 @@ export class MapPage {
     const filterString = this.composeFilterString();
     const users = await this.usersService.findAll(filterString);
     for (const user of users) {
+      let distance: number;
       if (user.fattiTrovare) {
         const geocoderResponse = await this.locationService.createMarker(user);
         if (geocoderResponse) {
-          const marker = new Marker({
-            position: {
-              lat: geocoderResponse.results[0].geometry.location.lat(),
-              lng: geocoderResponse.results[0].geometry.location.lng(),
-            },
-          });
-          const markerOptions: google.maps.MarkerOptions = {
-            icon: {
-              url: user.imgUrl,
-              scaledSize: new google.maps.Size(50, 50, 'px', 'px'),
-            },
-          };
-          marker.setOptions(markerOptions);
-          marker.user = user;
-          if (marker) {
-            this.points.push(marker);
-            this.filteredUsers.push(user);
-            this.bounds.extend(marker.getPosition());
+          let userPosition: LatLng;
+          userPosition = new google.maps.LatLng(
+            geocoderResponse.results[0].geometry.location.lat(),
+            geocoderResponse.results[0].geometry.location.lng()
+          );
+          if (this.filters.aroundMe) distance = google.maps.geometry.spherical.computeDistanceBetween(this.trueCenter, userPosition);
+          if (!this.filters.aroundMe || (this.filters.aroundMe && distance <= this.filters.searchRadius * 1000)) {
+            const marker = new Marker({
+              position: userPosition,
+            });
+            const markerOptions: google.maps.MarkerOptions = {
+              icon: {
+                url: user.imgUrl,
+                scaledSize: new google.maps.Size(50, 50, 'px', 'px'),
+              },
+            };
+            marker.setOptions(markerOptions);
+            marker.user = user;
+            if (marker) {
+              this.points.push(marker);
+              this.filteredUsers.push(user);
+              this.bounds.extend(marker.getPosition());
+            }
           }
         }
       }

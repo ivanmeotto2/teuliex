@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { getItemLocalStorage } from 'src/app/shared/utils/utils';
+import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from 'src/app/shared/utils/utils';
 import { TabNamePipe } from '../../shared/pipes/tab-name.pipe';
 import { Router } from '@angular/router';
 
@@ -15,11 +15,14 @@ export class PrivatePage {
   location: Location = window.location;
   selectedTab: string;
 
-  constructor(private menuController: MenuController, private router: Router) {}
+  constructor(private menuController: MenuController, private router: Router, private usersService: UsersService) {}
   user: User = new User();
 
   async ionViewWillEnter() {
-    this.user = JSON.parse(getItemLocalStorage('user'));
+    const id = JSON.parse(getItemLocalStorage('user')).id;
+    this.user = await this.usersService.retrieveOne(id);
+    removeItemLocalStorage('user');
+    setItemLocalStorage('user', JSON.stringify(this.user));
     if (!this.user) {
       this.router.navigate(['/private/home']);
     }

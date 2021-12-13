@@ -27,11 +27,13 @@ export class User implements UserInterface {
   dataNascita: Date = new Date();
   localita: string = '';
   professione: string = '';
+  corso: string = '';
   imgUrl: string = './../../assets/images/avatar.jpeg';
   quoteInRegola: boolean = false;
   notifichePush: boolean = false;
   mostraEmail: boolean = false;
   mostraNumTel: boolean = false;
+  abilitaGeolocalizzazione: boolean = false;
   indirizzoSpedizione: string = '';
   fattiTrovare: boolean = false;
   password: string = '';

@@ -8,18 +8,8 @@ import { API_BASE } from '../shared/constants/consts';
 export class NewsApiService {
   constructor(private http: HttpClient) {}
 
-  getAllNews() {
-    return this.http
-      .get(`${API_BASE}/news?sortBy=dataPubblicazione&order=asc`)
-      .toPromise();
-  }
-
-  getLatestNews(count: number) {
-    return this.http
-      .get(
-        `${API_BASE}/news?sortBy=dataPubblicazione&order=asc&page=1&limit=${count}`
-      )
-      .toPromise();
+  getAllNews(page: number) {
+    return this.http.get(`${API_BASE}/news?sortBy=dataPubblicazione&page=${page}&limit=10`).toPromise();
   }
 
   getOneNews(id: string) {

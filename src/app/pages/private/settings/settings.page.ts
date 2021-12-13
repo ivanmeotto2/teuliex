@@ -18,6 +18,7 @@ export class SettingsPage {
     mostraEmail: false,
     mostraNumTel: false,
     fattiTrovare: false,
+    abilitaGeolocalizzazione: false,
   };
   settings: any[] = [];
   visibleOptions = {
@@ -25,6 +26,7 @@ export class SettingsPage {
     mostraEmail: false,
     mostraNumTel: false,
     fattiTrovare: false,
+    abilitaGeolocalizzazione: false,
   };
 
   constructor(private usersService: UsersService, private toastController: ToastController, private animationController: AnimationController) {}
@@ -36,6 +38,7 @@ export class SettingsPage {
       mostraEmail: this.user.mostraEmail.valueOf(),
       mostraNumTel: this.user.mostraNumTel.valueOf(),
       fattiTrovare: this.user.fattiTrovare.valueOf(),
+      abilitaGeolocalizzazione: this.user.abilitaGeolocalizzazione.valueOf(),
     };
     Object.assign(this.settings, SETTINGS);
   }
@@ -45,7 +48,8 @@ export class SettingsPage {
       this.user.notifichePush !== this.oldSettings.notifichePush ||
       this.user.mostraEmail !== this.oldSettings.mostraEmail ||
       this.user.mostraNumTel !== this.oldSettings.mostraNumTel ||
-      this.user.fattiTrovare !== this.oldSettings.fattiTrovare
+      this.user.fattiTrovare !== this.oldSettings.fattiTrovare ||
+      this.user.abilitaGeolocalizzazione !== this.oldSettings.abilitaGeolocalizzazione
     )
       return false;
     else return true;
@@ -78,6 +82,7 @@ export class SettingsPage {
       mostraEmail: this.user.mostraEmail.valueOf(),
       mostraNumTel: this.user.mostraNumTel.valueOf(),
       fattiTrovare: this.user.fattiTrovare.valueOf(),
+      abilitaGeolocalizzazione: this.user.abilitaGeolocalizzazione.valueOf(),
     };
     removeItemLocalStorage('user');
     setItemLocalStorage('user', JSON.stringify(this.user));

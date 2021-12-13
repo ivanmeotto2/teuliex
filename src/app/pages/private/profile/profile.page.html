@@ -47,13 +47,9 @@
           </ion-item>
         </ion-list>
       </div>
-      <ion-item>
-        <ion-label position="stacked">Professione</ion-label>
-        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.professione"></ion-input>
-      </ion-item>
       <div class="autocomplete-div" *ngIf="!id">
         <ion-item class="searchbar-container">
-          <ion-label position="stacked">Indirizzo spedizione calendario</ion-label>
+          <ion-label position="stacked">Domicilio</ion-label>
           <ion-input [readonly]="checkDisabled()" (ionFocus)="setIsLocationSelected(false)"
             (ionChange)="searchForAddress()" debounce="500" [(ngModel)]="autocompleteCalendar.input"></ion-input>
         </ion-item>
@@ -62,6 +58,14 @@
           </ion-item>
         </ion-list>
       </div>
+      <ion-item>
+        <ion-label position="stacked">Professione</ion-label>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.professione"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Corso</ion-label>
+        <ion-input readonly [(ngModel)]="tempUser.corso"></ion-input>
+      </ion-item>
       <ion-button [hidden]="checkDisabled()" [disabled]="checkButtonDisabled()"
         class="ion-margin-top ion-justify-content-center button" expand="block" (click)="updateProfile()">
         Salva modifiche</ion-button>

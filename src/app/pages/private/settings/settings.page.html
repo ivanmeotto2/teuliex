@@ -44,9 +44,21 @@
       <p class="ion-margin">Abilitando quest'impostazione, permetterai ad altri utenti di localizzarti quando cercano
         un'ex allievo sulla mappa degli ex allievi</p>
     </span>
+    <ion-item>
+      <ion-toggle [(ngModel)]="user.abilitaGeolocalizzazione" color="primary"></ion-toggle>
+      <ion-label>Abilita Geolocalizzazione</ion-label>
+      <ion-icon slot="end"
+        [name]="visibleOptions.abilitaGeolocalizzazione ? 'chevron-up-outline' : 'chevron-down-outline'"
+        (click)="visibleOptions.abilitaGeolocalizzazione = !visibleOptions.abilitaGeolocalizzazione">
+      </ion-icon>
+    </ion-item>
+    <span [hidden]="!visibleOptions.abilitaGeolocalizzazione">
+      <p class="ion-margin">Abilitando quest'impostazione, potrai utilizzare la funzione di filtraggio per distanza in
+        Kilometri nella sezione 'Trova ex allievo'</p>
+    </span>
   </ion-grid>
 </ion-content>
 
-<ion-footer class="ion-margin-top ion-justify-content-end">
+<ion-footer class="ion-justify-content-end">
   <ion-button [disabled]="checkDisabled()" (click)="changeSettings()">Salva</ion-button>
 </ion-footer>

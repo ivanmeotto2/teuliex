@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FiltersInterface } from '../../interfaces/filters';
 import { LocationService } from '../../services/location.service';
+import { getItemLocalStorage } from 'src/app/shared/utils/utils';
+import { User } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-filters-popover-menu',
@@ -10,6 +12,7 @@ import { LocationService } from '../../services/location.service';
 })
 export class FiltersPopoverMenuComponent {
   @Input() filters: FiltersInterface;
+  geolocalization: boolean;
   GoogleAutocomplete: google.maps.places.AutocompleteService;
   autocomplete: { input: string };
   autocompleteItems: any[];
@@ -24,7 +27,11 @@ export class FiltersPopoverMenuComponent {
       job: '',
       address: '',
       toFilter: false,
+      aroundMe: false,
+      searchRadius: 0,
     };
+    const user = JSON.parse(getItemLocalStorage('user')) as User;
+    this.geolocalization = user.abilitaGeolocalizzazione;
   }
 
   async ionViewWillEnter() {}
@@ -50,7 +57,7 @@ export class FiltersPopoverMenuComponent {
   }
 
   checkDisabled() {
-    if (!this.filters.address && !this.filters.job && !this.filters.surname) {
+    if (!this.filters.address && !this.filters.job && !this.filters.surname && (!this.filters.aroundMe || this.filters.searchRadius === 0)) {
       return true;
     }
     return false;
@@ -59,5 +66,9 @@ export class FiltersPopoverMenuComponent {
   async closePopover(value: boolean) {
     this.filters.toFilter = value;
     await this.modalController.dismiss();
+  }
+
+  setSearchRange(event: any) {
+    this.filters.searchRadius = event.detail.value;
   }
 }

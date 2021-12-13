@@ -3,4 +3,6 @@ export interface FiltersInterface {
   job?: string;
   address?: string;
   toFilter: boolean;
+  aroundMe: boolean;
+  searchRadius?: number;
 }
