@@ -1,0 +1,32 @@
+<ion-content>
+  <img class="qr-code" src="./../../../../assets/images/example-qr.png" />
+  <div class="card">
+    <ion-img [src]="user.imgUrl"></ion-img>
+    <ion-item-group class="ion-margin">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-text>{{user.nome}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Cognome</ion-label>
+        <ion-text>{{user.cognome}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Data di nascita</ion-label>
+        <ion-text>{{user.dataNascita | date: 'dd/MM/yyyy'}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Località</ion-label>
+        <ion-text>{{user.localita}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Professione</ion-label>
+        <ion-text>{{user.professione}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Corso</ion-label>
+        <ion-text>{{user.corso}}</ion-text>
+      </ion-item>
+    </ion-item-group>
+  </div>
+</ion-content>

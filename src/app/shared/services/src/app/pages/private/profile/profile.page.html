@@ -1,0 +1,74 @@
+<ion-content>
+  <ion-item-group>
+    <ion-row [hidden]="!id">
+      <ion-toolbar>
+        <ion-icon class="ion-margin" slot="end" size="large" name="close-outline" (click)="closeProfileModal()">
+        </ion-icon>
+      </ion-toolbar>
+    </ion-row>
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <div class="img-div">
+        <input #imgInput type="file" accept="image/*" id="profileImage" hidden (input)="changeImage($event)" />
+        <img [src]="tempUser.imgUrl" />
+        <ion-icon [hidden]="checkDisabled()" color="light" size="large" name="camera" (click)="imgInput.click()">
+        </ion-icon>
+      </div>
+    </ion-row>
+    <ion-item-group class="ion-margin-top">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Cognome</ion-label>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.cognome"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="id && tempUser.mostraEmail">
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input readonly [(ngModel)]="tempUser.email"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="id && tempUser.mostraNumTel">
+        <ion-label position="stacked">Cellulare</ion-label>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.cellulare"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Data di nascita</ion-label>
+        <ion-datetime readonly pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="tempUser.dataNascita">
+        </ion-datetime>
+      </ion-item>
+      <div class="autocomplete-div">
+        <ion-item class="searchbar-container">
+          <ion-label position="stacked">Località</ion-label>
+          <ion-input [readonly]="checkDisabled()" (ionFocus)="setIsLocationSelected(true)"
+            (ionChange)="searchForAddress()" debounce="500" [(ngModel)]="autocompleteLocation.input"></ion-input>
+        </ion-item>
+        <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || !isLocationSelected">
+          <ion-item *ngFor="let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="autocomplete-div" *ngIf="!id">
+        <ion-item class="searchbar-container">
+          <ion-label position="stacked">Domicilio</ion-label>
+          <ion-input [readonly]="checkDisabled()" (ionFocus)="setIsLocationSelected(false)"
+            (ionChange)="searchForAddress()" debounce="500" [(ngModel)]="autocompleteCalendar.input"></ion-input>
+        </ion-item>
+        <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || isLocationSelected">
+          <ion-item *ngFor=" let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
+          </ion-item>
+        </ion-list>
+      </div>
+      <ion-item>
+        <ion-label position="stacked">Professione</ion-label>
+        <ion-input [readonly]="checkDisabled()" [(ngModel)]="tempUser.professione"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Corso</ion-label>
+        <ion-input readonly [(ngModel)]="tempUser.corso"></ion-input>
+      </ion-item>
+      <ion-button [hidden]="checkDisabled()" [disabled]="checkButtonDisabled()"
+        class="ion-margin-top ion-justify-content-center button" expand="block" (click)="updateProfile()">
+        Salva modifiche</ion-button>
+    </ion-item-group>
+  </ion-item-group>
+</ion-content>
