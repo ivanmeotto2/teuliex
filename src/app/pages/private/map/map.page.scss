@@ -25,3 +25,13 @@ ion-toolbar {
     text-overflow: ellipsis;
   }
 }
+
+ion-fab {
+  ion-chip {
+    --background: #eb4536;
+    --color: white;
+    ion-icon {
+      color: white;
+    }
+  }
+}
