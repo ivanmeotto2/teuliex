@@ -4,7 +4,7 @@
       <ion-icon class="ion-margin-start hamburger" name="menu-outline" size="large" (click)="openSideMenu()"></ion-icon>
       <ion-title>{{selectedTab}}
       </ion-title>
-      <div class="button-div" *ngIf="!user">
+      <div class="button-div" *ngIf="!user.id">
         <ion-button color="secondary" [routerLink]="['/auth/login']" routerDirection="forward">ACCEDI
         </ion-button>
       </div>

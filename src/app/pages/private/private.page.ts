@@ -40,11 +40,16 @@ export class PrivatePage {
   }
 
   async ionViewWillEnter() {
-    const id = JSON.parse(getItemLocalStorage('user')).id;
-    this.user = await this.usersService.retrieveOne(id);
-    removeItemLocalStorage('user');
-    setItemLocalStorage('user', JSON.stringify(this.user));
-    if (!this.user) {
+    const user = JSON.parse(getItemLocalStorage('user'));
+    if (user) {
+      const id = user.id;
+      this.user = await this.usersService.retrieveOne(id);
+      removeItemLocalStorage('user');
+      setItemLocalStorage('user', JSON.stringify(this.user));
+    } else {
+      this.user = new User();
+    }
+    if (!this.user.id) {
       this.router.navigate(['/private/home']);
     }
     this.getActualTabOnInit();
@@ -82,8 +87,5 @@ export class PrivatePage {
     });
     await modal.present();
     await modal.onDidDismiss();
-    // if ((this.filters.job || this.filters.surname || this.filters.address || this.filters.aroundMe) && this.filters.toFilter) {
-    //   this.filterMap();
-    // }
   }
 }

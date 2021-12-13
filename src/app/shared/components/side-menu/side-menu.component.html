@@ -9,13 +9,13 @@
 <ion-content>
   <ion-list class="menu-voices">
     <ion-item lines="none" *ngFor="let option of menuOptions"
-      (click)="(!user && option.needsLogin) || (user && !user.quoteInRegola && option.needsQuoteInRegola) ? alert(option): handleNavigation([option.path], option.name)"
-      [class]="(!user && option.needsLogin) || (user && !user.quoteInRegola && option.needsQuoteInRegola) ? 'disabilitato' : null">
+      (click)="(!user.id && option.needsLogin) || (user.id && !user.quoteInRegola && option.needsQuoteInRegola) ? alert(option): handleNavigation([option.path], option.name)"
+      [class]="(!user.id && option.needsLogin) || (user.id && !user.quoteInRegola && option.needsQuoteInRegola) ? 'disabilitato' : null">
       <ion-icon [name]="option.icon" size="large"></ion-icon>
       <ion-text class="ion-margin-start">{{option.name}}</ion-text>
       <ion-icon slot="end" size="small" name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="user" lines="none" (click)="handleNavigation(['/private/profile'], 'Profilo')">
+    <ion-item *ngIf="user.id" lines="none" (click)="handleNavigation(['/private/profile'], 'Profilo')">
       <ion-avatar>
         <img [src]="user.imgUrl" />
       </ion-avatar>
@@ -25,7 +25,7 @@
       </div>
       <ion-icon slot="end" size="small" name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="user" lines="none" (click)="handleNavigation(['auth','login'])">
+    <ion-item *ngIf="user.id" lines="none" (click)="handleNavigation(['auth','login'])">
       <ion-icon name="log-out-outline" size="large"></ion-icon>
       <ion-text class="ion-margin-start">Logout</ion-text>
       <ion-icon slot="end" size="small" name="chevron-forward-outline"></ion-icon>

@@ -19,3 +19,10 @@ ion-grid {
 h1 {
   font-size: 32px;
 }
+
+.tab-name {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

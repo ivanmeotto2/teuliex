@@ -24,7 +24,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   async handleNavigation(route: string[], tabValue?: string) {
-    if (route[0] === 'auth' && this.user) {
+    if (route[0] === 'auth' && this.user.id) {
       const alert = await this.alertController.create({
         header: 'Attenzione',
         message: 'Vuoi veramente uscire?',
@@ -57,7 +57,7 @@ export class SideMenuComponent implements OnInit {
 
   async alert(option: any) {
     let alert: any;
-    if (!this.user && option.needsLogin) {
+    if (!this.user.id && option.needsLogin) {
       alert = await this.alertController.create({
         header: 'Attenzione',
         message: 'Per accedere a questa pagina è necessario il login. Clicca qui per andare alla schermata di accesso',
