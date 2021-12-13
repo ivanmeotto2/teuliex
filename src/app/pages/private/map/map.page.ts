@@ -60,6 +60,11 @@ export class MapPage {
   }
 
   async ionViewWillEnter() {
+    await this.defaultSearch();
+    this.currentUser = JSON.parse(getItemLocalStorage('user'));
+  }
+
+  async defaultSearch() {
     this.filters = {
       surname: '',
       job: '',
@@ -71,7 +76,6 @@ export class MapPage {
     this.filteredUsers = [];
     await this.getLocation(false, false);
     await this.filterMap();
-    this.currentUser = JSON.parse(getItemLocalStorage('user'));
   }
 
   async getLocation(toLoad: boolean, setCenter: boolean) {

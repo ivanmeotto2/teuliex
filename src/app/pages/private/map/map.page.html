@@ -18,8 +18,8 @@
       <ion-list>
         <ion-item *ngFor="let user of filteredUsers" class="ion-no-padding">
           <ion-img [src]="user.imgUrl" class="ion-padding"></ion-img>
-          <ion-list>
-            <ion-text><b>{{user.nome + ' ' + user.cognome | uppercase}}</b></ion-text>
+          <ion-list class="list-data">
+            <ion-text class="profile-name"><b>{{user.nome + ' ' + user.cognome | uppercase}}</b></ion-text>
             <ion-text>{{user.dataNascita | date: 'dd/MM/yyyy'}}</ion-text>
             <ion-text>{{user.localita}}</ion-text>
             <ion-text>{{user.professione}}</ion-text>
