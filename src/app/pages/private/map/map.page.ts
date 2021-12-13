@@ -28,7 +28,7 @@ export class MapPage {
     mapTypeControl: false,
     streetViewControl: false,
     maxZoom: 8,
-    minZoom: 1,
+    minZoom: 2,
   };
   filters: FiltersInterface = {
     surname: '',
