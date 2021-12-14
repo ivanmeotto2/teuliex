@@ -17,38 +17,38 @@
     <div class="img-div">
       <input #imgInput type="file" accept="image/*" id="profileImage" hidden (input)="changeImage($event)" />
       <img [src]="user.imgUrl" />
-      <ion-icon class="add-photo" size="large" name="camera" (click)="imgInput.click()"></ion-icon>
+      <ion-icon class="add-photo" size="large" name="camera" color="light" (click)="imgInput.click()"></ion-icon>
     </div>
   </ion-row>
   <ion-item-group class="ion-margin-top">
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Nome <span>*</span></ion-label>
-        <ion-input [(ngModel)]="user.nome"></ion-input>
+        <ion-input [(ngModel)]="user.nome" autocomplete="name"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Cognome <span>*</span></ion-label>
-        <ion-input [(ngModel)]="user.cognome"></ion-input>
+        <ion-input [(ngModel)]="user.cognome" autocomplete="family-name"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Cellulare</ion-label>
-        <ion-input inputmode="numeric" type="number" [(ngModel)]="user.cellulare"></ion-input>
+        <ion-input inputmode="numeric" type="number" [(ngModel)]="user.cellulare" autocomplete="tel"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Email <span>*</span></ion-label>
-        <ion-input type="email" [(ngModel)]="user.email"></ion-input>
+        <ion-input type="email" [(ngModel)]="user.email" autocomplete="off"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Password <span>*</span></ion-label>
-        <ion-input autocomplete="off" type="password" [(ngModel)]="user.password"></ion-input>
+        <ion-input autocomplete="off" type="password" [(ngModel)]="user.password" autocomplete="off"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
@@ -68,7 +68,7 @@
       <ion-item class="searchbar-container">
         <ion-label position="stacked">Località <span>*</span></ion-label>
         <ion-input (ionFocus)="setIsLocationSelected(true)" (ionChange)="searchForAddress()" debounce="500"
-          [(ngModel)]="autocompleteLocation.input"></ion-input>
+          [(ngModel)]="autocompleteLocation.input" autocomplete="off"></ion-input>
       </ion-item>
       <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || !isLocationSelected">
         <ion-item *ngFor="let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
@@ -79,7 +79,7 @@
       <ion-item class="searchbar-container">
         <ion-label position="stacked">Domicilio <span>*</span></ion-label>
         <ion-input (ionFocus)="setIsLocationSelected(false)" (ionChange)="searchForAddress()" debounce="500"
-          [(ngModel)]="autocompleteCalendar.input"></ion-input>
+          [(ngModel)]="autocompleteCalendar.input" autocomplete="off"></ion-input>
       </ion-item>
       <ion-list class="places-autocomplete" [hidden]="autocompleteItems.length === 0 || isLocationSelected">
         <ion-item *ngFor=" let item of autocompleteItems" (click)="selectedPlace(item)">{{item.description}}
@@ -89,7 +89,7 @@
     <ion-row class="ion-margin-top ion-justify-content-center input-row">
       <ion-item>
         <ion-label position="stacked">Professione</ion-label>
-        <ion-input [(ngModel)]="user.professione"></ion-input>
+        <ion-input [(ngModel)]="user.professione" autocomplete="off"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center input-row">

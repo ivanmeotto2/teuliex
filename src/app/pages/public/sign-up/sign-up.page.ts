@@ -4,6 +4,7 @@ import { UsersService } from '../../../shared/services/users.service';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LocationService } from '../../../shared/services/location.service';
+import { ERRORS } from 'src/app/shared/constants/errors';
 
 @Component({
   selector: 'app-sign-up',
@@ -53,27 +54,44 @@ export class SignUpPage implements OnInit {
       });
       await toast.present();
     } else {
-      const loading = await this.loadingController.create({
-        message: 'Please wait...',
-      });
-      await loading.present();
-      const userCreated = await this.usersService.createUser(this.user);
-      await loading.dismiss();
-      if (userCreated) {
-        const toast = await this.toastController.create({
-          message:
-            'Hai creato il tuo profilo con successo! Ora puoi registrarti',
-          duration: 4000,
-          buttons: [
-            {
-              icon: 'close',
-              role: 'cancel',
-              side: 'end',
-            },
-          ],
+      try {
+        const loading = await this.loadingController.create({
+          message: 'Please wait...',
         });
-        await toast.present();
-        this.router.navigate(['/auth/login']);
+        await loading.present();
+        const userCreated = await this.usersService.createUser(this.user);
+        await loading.dismiss();
+        if (userCreated) {
+          const toast = await this.toastController.create({
+            message: 'Hai creato il tuo profilo con successo! Ora puoi registrarti',
+            duration: 4000,
+            buttons: [
+              {
+                icon: 'close',
+                role: 'cancel',
+                side: 'end',
+              },
+            ],
+          });
+          await toast.present();
+          this.router.navigate(['/auth/login']);
+        }
+      } catch (error) {
+        if (error.status in ERRORS) {
+          const toast = await this.toastController.create({
+            message: ERRORS[error.status],
+            duration: 4000,
+            color: 'danger',
+            buttons: [
+              {
+                side: 'end',
+                icon: 'close',
+                role: 'cancel',
+              },
+            ],
+          });
+          await toast.present();
+        }
       }
     }
   }
@@ -108,10 +126,7 @@ export class SignUpPage implements OnInit {
         return;
       } else {
         if (!this.locationSelected) {
-          this.locationService.findLocation(
-            this.autocompleteLocation,
-            this.autocompleteItems
-          );
+          this.locationService.findLocation(this.autocompleteLocation, this.autocompleteItems);
         } else {
           this.locationSelected = false;
         }
@@ -121,10 +136,7 @@ export class SignUpPage implements OnInit {
         return;
       } else {
         if (!this.addressSelected) {
-          this.locationService.findLocation(
-            this.autocompleteCalendar,
-            this.autocompleteItems
-          );
+          this.locationService.findLocation(this.autocompleteCalendar, this.autocompleteItems);
         } else {
           this.addressSelected = false;
         }

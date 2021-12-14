@@ -17,12 +17,15 @@ ion-toolbar {
   justify-content: space-between;
 }
 
-.list-data {
-  max-width: 65%;
-  .profile-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.user-list-item {
+  cursor: pointer;
+  .list-data {
+    max-width: 65%;
+    .profile-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 
