@@ -35,7 +35,9 @@
 </ion-content>
 <ion-footer class="ion-padding-start ion-padding-end">
   <ion-toolbar class="ion-justify-content-center">
-    <ion-icon name="locate-outline" size="large" (click)="getLocation(true, true)" slot="start"></ion-icon>
+    <ion-icon name="locate-outline" size="large" (click)="getLocation(true, true)" slot="start">
+    </ion-icon>
+    <ion-icon name="radio-outline" size="large" class="ion-padding-start" (click)="aroundMe()" slot="start"></ion-icon>
     <ion-icon [name]="currentTab === 'list' ? 'map-outline' : 'list-outline'" size="large" (click)="toggleView()"
       slot="end">
     </ion-icon>

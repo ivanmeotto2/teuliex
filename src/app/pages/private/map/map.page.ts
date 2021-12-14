@@ -27,7 +27,7 @@ export class MapPage {
     fullscreenControl: false,
     mapTypeControl: false,
     streetViewControl: false,
-    maxZoom: 8,
+    maxZoom: 10,
     minZoom: 2,
   };
   filters: FiltersInterface = {
@@ -186,6 +186,16 @@ export class MapPage {
       this.center = this.bounds.getCenter();
       if (this.filteredUsers.length > 1) this.map.fitBounds(this.bounds);
     }
+  }
+
+  async aroundMe() {
+    this.isMapFiltered = false;
+    this.filteredUsers = [];
+    this.filters.aroundMe = true;
+    if (this.filters.searchRadius === 0) this.filters.searchRadius = 50;
+    await this.filterMap();
+    this.isMapFiltered = true;
+    this.map.googleMap.setZoom(10);
   }
 
   composeFilterString() {

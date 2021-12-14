@@ -38,7 +38,7 @@
       <ion-item *ngIf="filters.aroundMe">
         <ion-label position="stacked" class="ion-margin-bottom">Raggio di ricerca</ion-label>
         <span class="slider-container">
-          <ion-range class="ion-padding" min="0" max="1000" (ionChange)="setSearchRange($event)"></ion-range>
+          <ion-range class="ion-padding" min="0" max="50" (ionChange)="setSearchRange($event)"></ion-range>
           <ion-text>{{filters.searchRadius}} km</ion-text>
         </span>
       </ion-item>
