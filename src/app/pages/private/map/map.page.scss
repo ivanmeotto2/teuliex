@@ -28,7 +28,7 @@ ion-toolbar {
 
 ion-fab {
   ion-chip {
-    --background: #eb4536;
+    --background: var(--ion-color-danger);
     --color: white;
     ion-icon {
       color: white;

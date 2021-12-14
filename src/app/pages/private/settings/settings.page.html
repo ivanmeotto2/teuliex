@@ -2,7 +2,7 @@
   <ion-grid class="ion-justify-content-center">
     <ion-item id="setting">
       <ion-toggle [(ngModel)]="user.notifichePush" color="primary"></ion-toggle>
-      <ion-label>Notifiche push</ion-label>
+      <ion-label class="ion-padding-start">Notifiche push</ion-label>
       <ion-icon slot="end" [name]="visibleOptions.notifichePush ? 'chevron-up-outline' : 'chevron-down-outline'"
         (click)="visibleOptions.notifichePush = !visibleOptions.notifichePush">
       </ion-icon>
@@ -13,7 +13,7 @@
     </span>
     <ion-item id="setting">
       <ion-toggle [(ngModel)]="user.mostraEmail" color="primary"></ion-toggle>
-      <ion-label>Mostra Email</ion-label>
+      <ion-label class="ion-padding-start">Mostra Email</ion-label>
       <ion-icon slot="end" [name]="visibleOptions.mostraEmail ? 'chevron-up-outline' : 'chevron-down-outline'"
         (click)="visibleOptions.mostraEmail = !visibleOptions.mostraEmail">
       </ion-icon>
@@ -24,7 +24,7 @@
     </span>
     <ion-item id="setting">
       <ion-toggle [(ngModel)]="user.mostraNumTel" color="primary"></ion-toggle>
-      <ion-label>Mostra numero di telefono</ion-label>
+      <ion-label class="ion-padding-start">Mostra numero di telefono</ion-label>
       <ion-icon slot="end" [name]="visibleOptions.mostraNumTel ? 'chevron-up-outline' : 'chevron-down-outline'"
         (click)="visibleOptions.mostraNumTel = !visibleOptions.mostraNumTel">
       </ion-icon>
@@ -35,7 +35,7 @@
     </span>
     <ion-item>
       <ion-toggle [(ngModel)]="user.fattiTrovare" color="primary"></ion-toggle>
-      <ion-label>Fatti Trovare</ion-label>
+      <ion-label class="ion-padding-start">Fatti Trovare</ion-label>
       <ion-icon slot="end" [name]="visibleOptions.fattiTrovare ? 'chevron-up-outline' : 'chevron-down-outline'"
         (click)="visibleOptions.fattiTrovare = !visibleOptions.fattiTrovare">
       </ion-icon>
@@ -46,7 +46,7 @@
     </span>
     <ion-item>
       <ion-toggle [(ngModel)]="user.abilitaGeolocalizzazione" color="primary"></ion-toggle>
-      <ion-label>Abilita Geolocalizzazione</ion-label>
+      <ion-label class="ion-padding-start">Abilita Geolocalizzazione</ion-label>
       <ion-icon slot="end"
         [name]="visibleOptions.abilitaGeolocalizzazione ? 'chevron-up-outline' : 'chevron-down-outline'"
         (click)="visibleOptions.abilitaGeolocalizzazione = !visibleOptions.abilitaGeolocalizzazione">

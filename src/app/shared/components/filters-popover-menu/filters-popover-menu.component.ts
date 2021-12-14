@@ -4,7 +4,7 @@ import { FiltersInterface } from '../../interfaces/filters';
 import { LocationService } from '../../services/location.service';
 import { getItemLocalStorage } from 'src/app/shared/utils/utils';
 import { User } from 'src/app/shared/interfaces/user';
-import { FiltersService } from '../../services/filters.service';
+import { BehaviorsService } from '../../services/filters.service';
 
 @Component({
   selector: 'app-filters-popover-menu',
@@ -19,7 +19,11 @@ export class FiltersPopoverMenuComponent {
   autocompleteItems: any[];
   addressSelected: boolean = false;
 
-  constructor(private readonly modalController: ModalController, private locationService: LocationService, private filtersService: FiltersService) {
+  constructor(
+    private readonly modalController: ModalController,
+    private locationService: LocationService,
+    private BehaviorsService: BehaviorsService
+  ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
@@ -66,7 +70,7 @@ export class FiltersPopoverMenuComponent {
 
   async closePopover(value: boolean) {
     this.filters.toFilter = value;
-    this.filtersService.filters.next(this.filters);
+    this.BehaviorsService.filters.next(this.filters);
     await this.modalController.dismiss();
   }
 

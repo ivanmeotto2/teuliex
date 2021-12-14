@@ -8,9 +8,13 @@
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center">
       <div class="img-div">
+        <ion-icon *ngIf="(tempUser.imgUrl !== defaultImage) && !id" size="small" class="delete-photo"
+          name="close-outline" (click)="cancelImage()">
+        </ion-icon>
         <input #imgInput type="file" accept="image/*" id="profileImage" hidden (input)="changeImage($event)" />
         <img [src]="tempUser.imgUrl" />
-        <ion-icon [hidden]="checkDisabled()" color="light" size="large" name="camera" (click)="imgInput.click()">
+        <ion-icon class="add-photo" [hidden]="checkDisabled()" color="light" size="large" name="camera"
+          (click)="imgInput.click()">
         </ion-icon>
       </div>
     </ion-row>

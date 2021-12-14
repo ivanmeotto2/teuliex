@@ -33,13 +33,6 @@ export const MENU_OPTIONS = [
     needsQuoteInRegola: true,
   },
   {
-    name: 'Impostazioni',
-    path: '/private/settings',
-    icon: 'settings-outline',
-    needsLogin: true,
-    needsQuoteInRegola: false,
-  },
-  {
     name: 'Stato quote',
     path: '/private/stato-quote',
     icon: 'document-text-outline',
@@ -51,6 +44,13 @@ export const MENU_OPTIONS = [
     path: '/private/credits',
     icon: 'brush-outline',
     needsLogin: false,
+    needsQuoteInRegola: false,
+  },
+  {
+    name: 'Impostazioni',
+    path: '/private/settings',
+    icon: 'settings-outline',
+    needsLogin: true,
     needsQuoteInRegola: false,
   },
 ];

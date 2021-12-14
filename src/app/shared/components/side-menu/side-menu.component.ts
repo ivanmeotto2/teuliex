@@ -5,6 +5,7 @@ import { MENU_OPTIONS } from '../../constants/consts';
 import { removeItemLocalStorage } from '../../utils/utils';
 import { User } from 'src/app/shared/interfaces/user';
 import pkg from '../../../../../package.json';
+import { BehaviorsService } from 'src/app/shared/services/filters.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -17,7 +18,16 @@ export class SideMenuComponent implements OnInit {
   @Output() emitTabName: EventEmitter<string> = new EventEmitter<string>();
   menuOptions: any[] = [];
 
-  constructor(private readonly alertController: AlertController, private router: Router, private menuController: MenuController) {}
+  constructor(
+    private readonly alertController: AlertController,
+    private router: Router,
+    private menuController: MenuController,
+    private behaviorsService: BehaviorsService
+  ) {
+    behaviorsService.user.subscribe((userValue) => {
+      this.user = userValue;
+    });
+  }
 
   ngOnInit() {
     Object.assign(this.menuOptions, MENU_OPTIONS);

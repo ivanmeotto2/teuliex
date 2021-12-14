@@ -6,8 +6,8 @@
           <ion-img (ionImgDidLoad)="dismissLoading()" [src]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"
             [alt]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"></ion-img>
         </ion-card-header>
-        <ion-card-content>
-          <ion-title>{{notizia.title}}</ion-title>
+        <ion-card-content class="ion-text-center">
+          <ion-card-title class="ion-padding">{{notizia.title}}</ion-card-title>
           <p>{{notizia.content}}</p>
           <ion-row class="ion-margin-top">
             <ion-chip *ngFor="let tag of notizia.tags" [color]="tag.color">{{tag.tagName}}</ion-chip>
@@ -16,7 +16,7 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  <ion-infinite-scroll threshold="10px" (ionInfinite)="retrieveMoreNews($event)">
+  <ion-infinite-scroll class="ion-padding" threshold="10px" (ionInfinite)="retrieveMoreNews($event)">
     <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more news...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

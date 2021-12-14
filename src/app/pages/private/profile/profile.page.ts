@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/shared/interfaces/user';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from '../../../shared/utils/utils';
-import { AlertController, ToastController, LoadingController, ModalController } from '@ionic/angular';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ERRORS } from '../../../shared/constants/errors';
 import { LocationService } from '../../../shared/services/location.service';
+import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from '../../../shared/utils/utils';
+import { BehaviorsService } from 'src/app/shared/services/filters.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,15 +14,16 @@ import { LocationService } from '../../../shared/services/location.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage {
+  @Input() id: string = '';
   user: User = new User();
   tempUser: User = new User();
+  defaultImage: string;
   autocompleteLocation: { input: string };
   autocompleteCalendar: { input: string };
   autocompleteItems: any[] = [];
   locationSelected: boolean = false;
   addressSelected: boolean = false;
   isLocationSelected: boolean = false;
-  @Input() id: string = '';
   enteredProfile: boolean = true;
 
   constructor(
@@ -30,13 +33,15 @@ export class ProfilePage {
     private loadingCtrl: LoadingController,
     private modalController: ModalController,
     private router: Router,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private behaviorService: BehaviorsService
   ) {
     this.autocompleteLocation = { input: this.user.localita };
     this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
     this.locationSelected = false;
     this.addressSelected = false;
     this.autocompleteItems = [];
+    this.defaultImage = './../../assets/images/avatar.jpeg';
   }
 
   async ionViewWillEnter() {
@@ -99,8 +104,9 @@ export class ProfilePage {
       removeItemLocalStorage('user');
       setItemLocalStorage('user', JSON.stringify(this.tempUser));
       this.user = this.tempUser;
+      this.behaviorService.user.next(this.user);
       const toast = await this.toastCtrl.create({
-        message: 'Modifiche avvenute con successo (alcune modifiche non verranno visualizzate fino al prossimo refresh della pagina)',
+        message: 'Modifiche avvenute con successo',
         duration: 4000,
         buttons: [
           {
@@ -113,8 +119,26 @@ export class ProfilePage {
       await toast.present();
       this.router.navigate(['/private/home']);
     } catch (error) {
-      console.log(error);
+      if (error.status in ERRORS) {
+        const toast = await this.toastCtrl.create({
+          message: ERRORS[error.status],
+          duration: 4000,
+          color: 'danger',
+          buttons: [
+            {
+              side: 'end',
+              icon: 'close',
+              role: 'cancel',
+            },
+          ],
+        });
+        await toast.present();
+      }
     }
+  }
+
+  cancelImage() {
+    this.tempUser.imgUrl = this.defaultImage;
   }
 
   searchForAddress() {

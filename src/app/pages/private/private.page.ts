@@ -6,7 +6,7 @@ import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from
 import { TabNamePipe } from '../../shared/pipes/tab-name.pipe';
 import { Router } from '@angular/router';
 import { FiltersInterface } from '../../shared/interfaces/filters';
-import { FiltersService } from 'src/app/shared/services/filters.service';
+import { BehaviorsService } from 'src/app/shared/services/filters.service';
 import { FiltersPopoverMenuComponent } from 'src/app/shared/components/filters-popover-menu/filters-popover-menu.component';
 
 @Component({
@@ -31,11 +31,14 @@ export class PrivatePage {
     private menuController: MenuController,
     private router: Router,
     private usersService: UsersService,
-    private filtersService: FiltersService,
+    private BehaviorsService: BehaviorsService,
     private modalController: ModalController
   ) {
-    filtersService.filters.subscribe((filtersValue) => {
+    BehaviorsService.filters.subscribe((filtersValue) => {
       this.filters = filtersValue;
+    });
+    BehaviorsService.user.subscribe((userValue) => {
+      this.user = userValue;
     });
   }
 

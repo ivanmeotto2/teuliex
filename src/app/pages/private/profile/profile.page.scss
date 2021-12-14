@@ -8,12 +8,21 @@
     aspect-ratio: 1;
     border-radius: 50%;
   }
-  ion-icon {
+  .add-photo {
     position: absolute;
     bottom: 5%;
     right: 5%;
     background-color: grey;
     padding: 5%;
+    border-radius: 50%;
+  }
+  .delete-photo {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background-color: var(--ion-color-danger);
+    color: white;
+    padding: 2%;
     border-radius: 50%;
   }
 }

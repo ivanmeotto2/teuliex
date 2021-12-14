@@ -12,6 +12,14 @@ ion-item {
     ion-title {
       padding: 0;
     }
+    .dati-quota {
+      align-items: center;
+      div {
+        h3 {
+          margin: auto;
+        }
+      }
+    }
     .importo {
       height: fit-content;
       text-align: end;

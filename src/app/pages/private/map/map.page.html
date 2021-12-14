@@ -1,12 +1,10 @@
 <ion-content>
-
+  <ion-fab *ngIf="isMapFiltered" vertical="top" horizontal="end">
+    <ion-chip>Cancella filtri<ion-icon name="close-outline" (click)="defaultSearch()"></ion-icon>
+    </ion-chip>
+  </ion-fab>
   <span *ngIf="currentTab === 'map'">
-    <ion-fab *ngIf="(filters.job || filters.surname || filters.address || filters.aroundMe) && filters.toFilter"
-      vertical="top" horizontal="end">
-      <ion-chip>Cancella filtri<ion-icon name="close-outline" (click)="defaultSearch()"></ion-icon>
-      </ion-chip>
-    </ion-fab>
-    <google-map #map height="100%" width="100%" [center]="center" [zoom]="5" [options]="mapOptions">
+    <google-map #map id="map" height="100%" width="100%" [center]="center" [zoom]="5" [options]="mapOptions">
       <span *ngIf="points">
         <map-marker *ngFor="let point of points" (mapClick)="openProfile(point.user.id)"
           [position]="point.getPosition()">
@@ -23,7 +21,7 @@
       <ion-list>
         <ion-item *ngFor="let user of filteredUsers" class="ion-no-padding">
           <ion-img [src]="user.imgUrl" class="ion-padding"></ion-img>
-          <ion-list class="list-data">
+          <ion-list class="list-data ion-padding">
             <ion-text class="profile-name"><b>{{user.nome + ' ' + user.cognome | uppercase}}</b></ion-text>
             <ion-text>{{user.dataNascita | date: 'dd/MM/yyyy'}}</ion-text>
             <ion-text>{{user.localita}}</ion-text>
