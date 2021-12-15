@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   AlertController,
   LoadingController,
-  ToastController,
+  ToastController
 } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { UsersService } from '../../../shared/services/users.service';
 import {
-  setItemLocalStorage,
-  getItemLocalStorage,
+  setItemLocalStorage
 } from 'src/app/shared/utils/utils';
+import { UsersService } from '../../../shared/services/users.service';
+import { BehaviorsService } from 'src/app/shared/services/filters.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,8 @@ export class LoginPage {
     private toastController: ToastController,
     private loadingController: LoadingController,
     private router: Router,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private behaviorsService: BehaviorsService
   ) {}
 
   async login() {
@@ -43,10 +44,16 @@ export class LoginPage {
       });
       await alert.present();
     } else {
+      const loading = await this.loadingController.create({
+        message: 'Logging in...',
+      })
+      await loading.present()
       const users = await this.usersService.findAll('');
-      users.forEach((user) => {
+      users.forEach(async (user) => {
         if (user.email === this.email) {
           this.userExists = true;
+          await loading.dismiss();
+          this.behaviorsService.user.next(user)
           setItemLocalStorage('user', JSON.stringify(user));
           this.router.navigate(['private', 'home']);
         }

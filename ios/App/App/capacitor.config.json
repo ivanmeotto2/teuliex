@@ -1,0 +1,6 @@
+{
+	"appId": "com.teuliex.app",
+	"appName": "Teuliex",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

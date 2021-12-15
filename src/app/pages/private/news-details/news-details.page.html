@@ -11,7 +11,8 @@
 <ion-content>
   <ion-grid>
     <ion-row class="ion-margin-top ion-justify-content-center ion-text-center">
-      <h1>{{news.title | uppercase}}</h1>
+      <h1><b>{{news.title | uppercase}}</b></h1>
+      <h3><b>{{news.subtitle ? news.subtitle : null}}</b></h3>
     </ion-row>
     <ion-row class="ion-margin-top ion-justify-content-center content-row">
       <p class="ion-text-justify">{{news.content}}</p>
@@ -26,7 +27,7 @@
       <ion-col [sizeSm]="3" [sizeXs]="12" *ngFor="let img of news.imgs">
         <ion-card>
           <ion-card-content>
-            <ion-img [src]="img" [alt]="img"></ion-img>
+            <ion-img [src]="img" [alt]="img" (click)="openFullscreenImage(img)"></ion-img>
           </ion-card-content>
         </ion-card>
 

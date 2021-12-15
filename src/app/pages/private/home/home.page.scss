@@ -27,6 +27,7 @@ ion-grid {
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: pre-line;      
     }
     ion-row {
       width: 90%;

@@ -3,11 +3,11 @@
   <access origin="*" />
   
   <feature name="CallNumber">
-    <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber"/>
+    <param name="ios-package" value="CFCallNumber"/>
   </feature>
 
   <feature name="PhotoViewer">
-    <param name="android-package" value="com.sarriaroman.PhotoViewer.PhotoViewer"/>
+    <param name="ios-package" value="PhotoViewer"/>
   </feature>
 
   

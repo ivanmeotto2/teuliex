@@ -31,13 +31,13 @@ export class PrivatePage {
     private menuController: MenuController,
     private router: Router,
     private usersService: UsersService,
-    private BehaviorsService: BehaviorsService,
+    private behaviorsService: BehaviorsService,
     private modalController: ModalController
   ) {
-    BehaviorsService.filters.subscribe((filtersValue) => {
+    behaviorsService.filters.subscribe((filtersValue) => {
       this.filters = filtersValue;
     });
-    BehaviorsService.user.subscribe((userValue) => {
+    behaviorsService.user.subscribe((userValue) => {
       this.user = userValue;
     });
   }
@@ -49,6 +49,7 @@ export class PrivatePage {
       this.user = await this.usersService.retrieveOne(id);
       removeItemLocalStorage('user');
       setItemLocalStorage('user', JSON.stringify(this.user));
+      this.behaviorsService.user.next(user)
     } else {
       this.user = new User();
     }

@@ -4,54 +4,22 @@
       {{user.quoteInRegola ? 'In regola' : 'Non in regola'}}</span></h2>
 
   <ion-list class="ion-margin">
-    <ion-item class="ion-no-padding">
+    <ion-item class="ion-no-padding" *ngFor="let quota of quote">
       <ion-row>
         <ion-col class="dati-quota" size="7">
           <div>
-            <h3>Quota 1991</h3>
-            <ion-card-subtitle>01/01/1991</ion-card-subtitle>
-            <ion-text>Stato: <b>Pagato</b></ion-text>
+            <h3>{{quota.nome}}</h3>
+            <ion-card-subtitle>{{quota.data | date:'dd/MM/yyyy'}}</ion-card-subtitle>
+            <ion-text>Stato: <b [class]="quota.stato ? 'in-regola' : 'non-in-regola'">
+                {{quota.stato ? 'Pagato' : 'Non pagato'}}</b></ion-text>
           </div>
         </ion-col>
-        <ion-col size="5" class="importo">€ 500,00</ion-col>
-      </ion-row>
-    </ion-item>
-    <ion-item class="ion-no-padding">
-      <ion-row>
-        <ion-col class="dati-quota" size="7">
-          <div>
-            <h3>Quota 1998</h3>
-            <ion-card-subtitle>29/10/1998</ion-card-subtitle>
-            <ion-text>Stato: <b>Pagato</b></ion-text>
-          </div>
+        <ion-col size="4" class="importo">€ {{quota.importo}}</ion-col>
+        <ion-col size="1" class="arrow">
+          <ion-icon size="large" name="chevron-forward-outline" *ngIf="!quota.stato" (click)="openQuotePayment(quota)">
+          </ion-icon>
         </ion-col>
-        <ion-col size="5" class="importo">€ 1000,00</ion-col>
       </ion-row>
     </ion-item>
-    <ion-item class="ion-no-padding">
-      <ion-row>
-        <ion-col class="dati-quota" size="7">
-          <div>
-            <h3>Quota 2011</h3>
-            <ion-card-subtitle>19/04/2011</ion-card-subtitle>
-            <ion-text>Stato: <b>Pagato</b></ion-text>
-          </div>
-        </ion-col>
-        <ion-col size="5" class="importo">€ 2,00</ion-col>
-      </ion-row>
-    </ion-item>
-    <ion-item class="ion-no-padding">
-      <ion-row>
-        <ion-col class="dati-quota" size="7">
-          <div>
-            <h3>Quota 2019</h3>
-            <ion-card-subtitle>01/06/2019</ion-card-subtitle>
-            <ion-text>Stato: <b>Non pagato</b></ion-text>
-          </div>
-        </ion-col>
-        <ion-col size="5" class="importo">€ 200,00</ion-col>
-      </ion-row>
-    </ion-item>
-
   </ion-list>
 </ion-content>

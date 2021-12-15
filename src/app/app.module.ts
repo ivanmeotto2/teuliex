@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from 'src/environments/environment';
 import { InfoWindowMarkerComponent } from './shared/components/info-window-marker/info-window-marker.component';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 @NgModule({
   declarations: [AppComponent, InfoWindowMarkerComponent],
   entryComponents: [],
   imports: [
-    BrowserModule,
+  
+  BrowserModule,
     IonicModule.forRoot({
       menuType: 'overlay',
     }),
@@ -26,6 +28,7 @@ import { InfoWindowMarkerComponent } from './shared/components/info-window-marke
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     UsersService,
+    CallNumber
   ],
   bootstrap: [AppComponent],
 })

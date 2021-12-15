@@ -7,6 +7,7 @@ import { ERRORS } from '../../../shared/constants/errors';
 import { LocationService } from '../../../shared/services/location.service';
 import { getItemLocalStorage, removeItemLocalStorage, setItemLocalStorage } from '../../../shared/utils/utils';
 import { BehaviorsService } from 'src/app/shared/services/filters.service';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +35,8 @@ export class ProfilePage {
     private modalController: ModalController,
     private router: Router,
     private locationService: LocationService,
-    private behaviorService: BehaviorsService
+    private behaviorService: BehaviorsService,
+    private callNumber: CallNumber
   ) {
     this.autocompleteLocation = { input: this.user.localita };
     this.autocompleteCalendar = { input: this.user.indirizzoSpedizione };
@@ -201,5 +203,9 @@ export class ProfilePage {
     ) {
       return true;
     } else return false;
+  }
+  
+  async callUser() {
+    await this.callNumber.callNumber(this.tempUser.cellulare, true)
   }
 }
