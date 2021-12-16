@@ -14,9 +14,9 @@
                 {{quota.stato ? 'Pagato' : 'Non pagato'}}</b></ion-text>
           </div>
         </ion-col>
-        <ion-col size="4" class="importo">€ {{quota.importo}}</ion-col>
-        <ion-col size="1" class="arrow">
-          <ion-icon size="large" name="chevron-forward-outline" *ngIf="!quota.stato" (click)="openQuotePayment(quota)">
+        <ion-col [size]="quota.stato ? 5 : 4" class="importo">€ {{quota.importo}}</ion-col>
+        <ion-col size="1" class="arrow ion-text-end" *ngIf="!quota.stato">
+          <ion-icon size="large" name="chevron-forward-outline" (click)="openQuotePayment(quota)">
           </ion-icon>
         </ion-col>
       </ion-row>

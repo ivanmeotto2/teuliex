@@ -26,34 +26,40 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 ion-header {
-  ion-toolbar {
-    --background: #020250;
-    --color: #ffffff;
-  }
+	ion-toolbar {
+		--background: #020250;
+		--color: #ffffff;
+	}
 }
 
 ion-icon {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .autocomplete-div {
-  .places-autocomplete {
-    box-shadow: 0px 7px 12px 1px rgba(2, 2, 80, 0.61);
-    ion-item {
-      --inner-padding-start: 16px;
-    }
-  }
+	.places-autocomplete {
+		box-shadow: 0px 7px 12px 1px rgba(2, 2, 80, 0.61);
+		ion-item {
+			--inner-padding-start: 16px;
+		}
+	}
 }
 
 .filter-popover .popover-content {
-  width: 60%;
-  right: auto;
-  position: absolute;
+	width: 60%;
+	right: auto;
+	position: absolute;
+}
+
+.half-modal .modal-wrapper {
+	height: 50%;
+	bottom: 0;
+	position: absolute;
 }
 
 @media screen and (max-width: 425px) {
-  .filter-popover .popover-content {
-    width: 80% !important;
-    left: 10% !important;
-  }
+	.filter-popover .popover-content {
+		width: 80% !important;
+		left: 10% !important;
+	}
 }

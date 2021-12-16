@@ -10,5 +10,9 @@
     <param name="ios-package" value="PhotoViewer"/>
   </feature>
 
+  <feature name="CordovaStripe">
+    <param name="ios-package" value="CordovaStripe"/>
+  </feature>
+
   
 </widget>
