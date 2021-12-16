@@ -8,7 +8,9 @@ export enum TABS_NAME {
 	credits = 'Crediti',
 }
 
-export const API_BASE = 'https://61a77dce387ab200171d2d20.mockapi.io';
+export const OLD_API_BASE = 'https://61a77dce387ab200171d2d20.mockapi.io';
+
+export const API_BASE = 'https://www.teuliex.com/rest';
 
 export const STRIPE_KEY = 'pk_test_51K7FH4LE83ts9xqAyXNnc4m2PCuCZxiqwzJEXc9PI2piknQG1kgzeMTlaBMmi2r0pAiEP5c3AGhr8mOy0q8KYqQB00SyE8kxX9';
 

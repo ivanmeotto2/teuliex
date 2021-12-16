@@ -1,19 +1,20 @@
 <ion-content>
   <ion-row class="ion-justify-content-center ion-margin">
     <ion-col [sizeXs]="12" [sizeSm]="5" *ngFor="let notizia of news" class="ion-margin">
-      <ion-card class="news-card" (click)="openNews(notizia.newsId)">
-        <ion-card-header>
+      <ion-card class="news-card">
+        <ion-card-header (click)="openNews(notizia.newsId)">
           <ion-img [src]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"
             [alt]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"></ion-img>
         </ion-card-header>
-        <ion-card-content class="ion-text-center">
+        <ion-card-content (click)="openNews(notizia.newsId)" class="ion-text-center">
           <ion-card-title class="ion-padding">{{notizia.title}}</ion-card-title>
           <p>{{notizia.content}}</p>
-          <ion-row class="ion-justify-content-end">
-            <ion-button color="primary" *ngIf="notizia.isEvent" class="ion-margin-top ion-margin-bottom">
-              Partecipa</ion-button>
-          </ion-row>
         </ion-card-content>
+        <ion-row class="ion-justify-content-end ion-margin-end">
+          <ion-button color="primary" *ngIf="notizia.isEvent" (click)="openEventRegistration(notizia)"
+            class="ion-margin-top ion-margin-bottom">
+            Partecipa</ion-button>
+        </ion-row>
       </ion-card>
     </ion-col>
   </ion-row>

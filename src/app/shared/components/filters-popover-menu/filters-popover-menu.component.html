@@ -29,16 +29,11 @@
       </ion-item>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-item class="ion-no-padding">
-        <ion-checkbox [(ngModel)]="filters.aroundMe" [disabled]="!geolocalization"
-          (ionChange)="filters.searchRadius = 0"></ion-checkbox>
-        <ion-label class="ion-padding-start ion-padding-top ion-padding-bottom ion-no-padding-end">Cerca utenti in un
-          raggio</ion-label>
-      </ion-item>
-      <ion-item *ngIf="filters.aroundMe">
-        <ion-label position="stacked" class="ion-margin-bottom">Raggio di ricerca</ion-label>
+      <ion-item>
+        <ion-label position="stacked" class="ion-margin-bottom">Modifica raggio</ion-label>
         <span class="slider-container">
-          <ion-range class="ion-padding" min="0" max="50" (ionChange)="setSearchRange($event)"></ion-range>
+          <ion-range class="ion-padding" min="1" max="50" [(ngModel)]="filters.searchRadius"
+            (ionChange)="setSearchRange($event)"></ion-range>
           <ion-text>{{filters.searchRadius}} km</ion-text>
         </span>
       </ion-item>

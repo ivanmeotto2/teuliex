@@ -10,6 +10,10 @@
     <param name="ios-package" value="PhotoViewer"/>
   </feature>
 
+  <feature name="EmailComposer">
+    <param name="ios-package" value="APPEmailComposer"/>
+  </feature>
+
   <feature name="CordovaStripe">
     <param name="ios-package" value="CordovaStripe"/>
   </feature>

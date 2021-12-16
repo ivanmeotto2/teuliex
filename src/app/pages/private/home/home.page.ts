@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
+import { IonInfiniteScroll, LoadingController, ModalController } from '@ionic/angular';
 import { News } from 'src/app/shared/interfaces/news';
 import { NewsService } from 'src/app/shared/services/news.service';
 import { BehaviorsService } from 'src/app/shared/services/filters.service';
 import { User } from 'src/app/shared/interfaces/user';
+import { EventRegistrationModalComponent } from '../../../shared/components/event-registration-modal/event-registration-modal.component';
 
 @Component({
 	selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomePage {
 		private router: Router,
 		private newsService: NewsService,
 		private loadingCtrl: LoadingController,
-		private behaviorsService: BehaviorsService
+		private behaviorsService: BehaviorsService,
+		private modalController: ModalController
 	) {
 		this.defaultImage = './../../../../assets/images/no_image.jpeg';
 		behaviorsService.user.subscribe((userValue) => {
@@ -74,5 +76,16 @@ export class HomePage {
 			tempNews = news;
 		}
 		return tempNews;
+	}
+
+	async openEventRegistration(news: News) {
+		const modal = await this.modalController.create({
+			component: EventRegistrationModalComponent,
+			componentProps: {
+				event: news,
+			},
+			cssClass: 'half-modal',
+		});
+		await modal.present();
 	}
 }

@@ -87,7 +87,7 @@ export class PrivatePage {
 			address: '',
 			toFilter: false,
 			aroundMe: false,
-			searchRadius: 0,
+			searchRadius: 50,
 		};
 		const modal = await this.modalController.create({
 			component: FiltersPopoverMenuComponent,

@@ -12,10 +12,9 @@ import { firebaseConfig } from 'src/environments/environment';
 import { InfoWindowMarkerComponent } from './shared/components/info-window-marker/info-window-marker.component';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { Stripe } from '@awesome-cordova-plugins/stripe/ngx';
-import { EventRegistrationModalComponent } from './shared/components/event-registration-modal/event-registration-modal.component';
 
 @NgModule({
-	declarations: [AppComponent, InfoWindowMarkerComponent, EventRegistrationModalComponent],
+	declarations: [AppComponent, InfoWindowMarkerComponent],
 	entryComponents: [],
 	imports: [
 		BrowserModule,

@@ -5,10 +5,12 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { NewsService } from 'src/app/shared/services/news.service';
+import { EventRegistrationModalComponent } from 'src/app/shared/components/event-registration-modal/event-registration-modal.component';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
-  declarations: [HomePage],
-  providers: [NewsService],
+	imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
+	declarations: [HomePage, EventRegistrationModalComponent],
+	providers: [NewsService, EmailComposer],
 })
 export class HomePageModule {}

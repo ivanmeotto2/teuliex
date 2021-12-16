@@ -7,74 +7,74 @@ import { User } from 'src/app/shared/interfaces/user';
 import { BehaviorsService } from '../../services/filters.service';
 
 @Component({
-  selector: 'app-filters-popover-menu',
-  templateUrl: './filters-popover-menu.component.html',
-  styleUrls: ['./filters-popover-menu.component.scss'],
+	selector: 'app-filters-popover-menu',
+	templateUrl: './filters-popover-menu.component.html',
+	styleUrls: ['./filters-popover-menu.component.scss'],
 })
 export class FiltersPopoverMenuComponent {
-  @Input() filters: FiltersInterface;
-  geolocalization: boolean;
-  GoogleAutocomplete: google.maps.places.AutocompleteService;
-  autocomplete: { input: string };
-  autocompleteItems: any[];
-  addressSelected: boolean = false;
+	@Input() filters: FiltersInterface;
+	geolocalization: boolean;
+	GoogleAutocomplete: google.maps.places.AutocompleteService;
+	autocomplete: { input: string };
+	autocompleteItems: any[];
+	addressSelected: boolean = false;
 
-  constructor(
-    private readonly modalController: ModalController,
-    private locationService: LocationService,
-    private BehaviorsService: BehaviorsService
-  ) {
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
-    this.filters = {
-      surname: '',
-      job: '',
-      address: '',
-      toFilter: false,
-      aroundMe: false,
-      searchRadius: 0,
-    };
-    const user = JSON.parse(getItemLocalStorage('user')) as User;
-    this.geolocalization = user.abilitaGeolocalizzazione;
-  }
+	constructor(
+		private readonly modalController: ModalController,
+		private locationService: LocationService,
+		private BehaviorsService: BehaviorsService
+	) {
+		this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+		this.autocomplete = { input: '' };
+		this.autocompleteItems = [];
+		this.filters = {
+			surname: '',
+			job: '',
+			address: '',
+			toFilter: false,
+			aroundMe: false,
+			searchRadius: 50,
+		};
+		const user = JSON.parse(getItemLocalStorage('user')) as User;
+		this.geolocalization = user.abilitaGeolocalizzazione;
+	}
 
-  async ionViewWillEnter() {}
+	async ionViewWillEnter() {}
 
-  autocompleteAddress() {
-    this.autocompleteItems = [];
-    if (this.autocomplete.input === '') {
-      return;
-    } else {
-      if (!this.addressSelected) {
-        this.locationService.findLocation(this.autocomplete, this.autocompleteItems);
-      } else {
-        this.addressSelected = false;
-      }
-    }
-  }
+	autocompleteAddress() {
+		this.autocompleteItems = [];
+		if (this.autocomplete.input === '') {
+			return;
+		} else {
+			if (!this.addressSelected) {
+				this.locationService.findLocation(this.autocomplete, this.autocompleteItems);
+			} else {
+				this.addressSelected = false;
+			}
+		}
+	}
 
-  selectedPlace(item: any) {
-    this.filters.address = item.description;
-    this.autocomplete.input = item.description;
-    this.addressSelected = true;
-    this.autocompleteItems = [];
-  }
+	selectedPlace(item: any) {
+		this.filters.address = item.description;
+		this.autocomplete.input = item.description;
+		this.addressSelected = true;
+		this.autocompleteItems = [];
+	}
 
-  checkDisabled() {
-    if (!this.filters.address && !this.filters.job && !this.filters.surname && (!this.filters.aroundMe || this.filters.searchRadius === 0)) {
-      return true;
-    }
-    return false;
-  }
+	checkDisabled() {
+		if ((!this.filters.address && !this.filters.job && !this.filters.surname) || this.filters.searchRadius === 50) {
+			return true;
+		}
+		return false;
+	}
 
-  async closePopover(value: boolean) {
-    this.filters.toFilter = value;
-    this.BehaviorsService.filters.next(this.filters);
-    await this.modalController.dismiss();
-  }
+	async closePopover(value: boolean) {
+		this.filters.toFilter = value;
+		this.BehaviorsService.filters.next(this.filters);
+		await this.modalController.dismiss();
+	}
 
-  setSearchRange(event: any) {
-    this.filters.searchRadius = event.detail.value;
-  }
+	setSearchRange(event: any) {
+		this.filters.searchRadius = event.detail.value;
+	}
 }
