@@ -93,7 +93,6 @@ export class HomePage {
       componentProps: {
         event: news,
       },
-      cssClass: 'half-modal',
     });
     await modal.present();
   }

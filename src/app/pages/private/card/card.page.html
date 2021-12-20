@@ -1,5 +1,6 @@
 <ion-content>
-  <img class="qr-code" src="./../../../../assets/images/example-qr.png" />
+  <ngx-qrcode class="qr-code" [elementType]="elementType" [value]="qrValue">
+  </ngx-qrcode>
   <div class="card">
     <ion-img [src]="user.imgUrl"></ion-img>
     <ion-item-group class="ion-margin">

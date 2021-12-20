@@ -45,6 +45,10 @@ ion-icon {
   }
 }
 
+ion-button {
+  --border-radius: 0px;
+}
+
 .filter-popover .popover-content {
   width: 60%;
   right: auto;
