@@ -1,3 +1,8 @@
+ion-img::part(image) {
+  width: 70% !important;
+  aspect-ratio: 1;
+}
+
 ion-button {
   margin-right: 2%;
 }

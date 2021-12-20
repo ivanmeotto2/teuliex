@@ -5,7 +5,9 @@
       <ion-title>{{selectedTab}}
       </ion-title>
     </ion-row>
-    <ion-button slot="end" *ngIf="!user.id" color="secondary" [routerLink]="['/auth/login']" routerDirection="forward">
+    <ion-img src="./../../../assets/icon/favicon.ico" class="logo" slot="end"></ion-img>
+    <ion-button slot="end" [hidden]="user.id" color="secondary" [routerLink]="['/auth/login']"
+      routerDirection="forward">
       ACCEDI
     </ion-button>
     <ion-icon name="options-outline" class="ion-margin-end" *ngIf="selectedTab == 'Trova ex allievo'" slot="end"
