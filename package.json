@@ -38,7 +38,6 @@
     "@techiediaries/ngx-qrcode": "^9.1.0",
     "call-number": "^1.0.1",
     "com-sarriaroman-photoviewer": "^1.2.5",
-    "cordova-plugin-email-composer": "^0.10.0",
     "cordova-plugin-stripe": "^1.5.3",
     "firebase": "^9.5.0",
     "ngx-google-places-autocomplete": "^2.0.5",

@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget version="0.0.25"
-  xmlns="http://www.w3.org/ns/widgets"
-  xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <access origin="*" />
-
+  
   <feature name="CallNumber">
     <param name="ios-package" value="CFCallNumber"/>
   </feature>
@@ -12,13 +10,9 @@
     <param name="ios-package" value="PhotoViewer"/>
   </feature>
 
-  <feature name="EmailComposer">
-    <param name="ios-package" value="APPEmailComposer"/>
-  </feature>
-
   <feature name="CordovaStripe">
     <param name="ios-package" value="CordovaStripe"/>
   </feature>
 
-
+  
 </widget>
