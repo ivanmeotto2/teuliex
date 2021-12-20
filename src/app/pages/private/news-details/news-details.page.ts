@@ -33,6 +33,10 @@ export class NewsDetailsPage {
   }
 
   openFullscreenImage(img: string) {
-    this.photoViewer.show(img)
+    try {
+      this.photoViewer.show(img);
+    } catch (err) {
+      alert(err);
+    }
   }
 }

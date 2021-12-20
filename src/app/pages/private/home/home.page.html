@@ -10,7 +10,7 @@
             [alt]="notizia.imgs.length > 0 ? notizia.imgs[0] : defaultImage"></ion-img>
         </ion-card-header>
         <ion-card-content (click)="openNews(notizia.newsId)" class="ion-text-center">
-          <ion-card-title class="ion-padding">{{notizia.title}}</ion-card-title>
+          <ion-card-title class="ion-no-padding ion-margin-bottom">{{notizia.title}}</ion-card-title>
           <p>{{notizia.content}}</p>
         </ion-card-content>
         <ion-row class="ion-justify-content-end ion-margin-end">

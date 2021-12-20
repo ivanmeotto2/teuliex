@@ -12,24 +12,26 @@ import { firebaseConfig } from 'src/environments/environment';
 import { InfoWindowMarkerComponent } from './shared/components/info-window-marker/info-window-marker.component';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { Stripe } from '@awesome-cordova-plugins/stripe/ngx';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 @NgModule({
-	declarations: [AppComponent, InfoWindowMarkerComponent],
-	entryComponents: [],
-	imports: [
-		BrowserModule,
-		IonicModule.forRoot({
-			menuType: 'overlay',
-		}),
-		AppRoutingModule,
-		HttpClientModule,
-		GooglePlaceModule,
-	],
-	providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UsersService, CallNumber, Stripe],
-	bootstrap: [AppComponent],
+  declarations: [AppComponent, InfoWindowMarkerComponent],
+  entryComponents: [],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot({
+      menuType: 'overlay',
+    }),
+    AppRoutingModule,
+    HttpClientModule,
+    GooglePlaceModule,
+    NgxQRCodeModule,
+  ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UsersService, CallNumber, Stripe],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
-	constructor() {
-		initializeApp(firebaseConfig);
-	}
+  constructor() {
+    initializeApp(firebaseConfig);
+  }
 }

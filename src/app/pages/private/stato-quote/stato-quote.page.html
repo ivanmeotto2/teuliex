@@ -5,7 +5,7 @@
 
   <ion-list class="ion-margin">
     <ion-item class="ion-no-padding" *ngFor="let quota of quote">
-      <ion-row>
+      <ion-row class="ion-no-padding">
         <ion-col class="dati-quota" size="7">
           <div>
             <h3>{{quota.nome}}</h3>
@@ -16,7 +16,7 @@
         </ion-col>
         <ion-col [size]="quota.stato ? 5 : 4" class="importo">€ {{quota.importo}}</ion-col>
         <ion-col size="1" class="arrow ion-text-end" *ngIf="!quota.stato">
-          <ion-icon size="large" name="chevron-forward-outline" (click)="openQuotePayment(quota)">
+          <ion-icon size="small" name="chevron-forward-outline" (click)="openQuotePayment(quota)">
           </ion-icon>
         </ion-col>
       </ion-row>

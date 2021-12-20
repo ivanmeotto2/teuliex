@@ -79,7 +79,7 @@ export class HomePage {
     let tempNews: News[] = [];
     if (!this.userIsLogged) {
       news.forEach((notizia) => {
-        if (!notizia.needsLogin) tempNews.push(notizia);
+        if (!notizia.needsLogin && !notizia.isEvent) tempNews.push(notizia);
       });
     } else {
       tempNews = news;
@@ -93,7 +93,6 @@ export class HomePage {
       componentProps: {
         event: news,
       },
-      cssClass: 'half-modal',
     });
     await modal.present();
   }

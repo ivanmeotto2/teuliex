@@ -3,12 +3,13 @@
     <ion-row class="ion-margin-start">
       <ion-icon size="large" name="arrow-back-outline" [routerLink]="['/private/home']" routerDirection="back">
       </ion-icon>
-      <ion-title class="tab-name">{{news.title | uppercase}}</ion-title>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <img *ngIf="news.imgs.length > 0" class="cover-image" [src]="news.imgs[0]" alt="cover-image"
+    (click)="openFullscreenImage(news.imgs[0])" />
   <ion-grid>
     <ion-row class="ion-margin-top ion-justify-content-center ion-text-center">
       <h1><b>{{news.title | uppercase}}</b></h1>
@@ -24,7 +25,7 @@
   </ion-grid>
   <ion-grid>
     <ion-row class="img-row">
-      <ion-col [sizeSm]="3" [sizeXs]="12" *ngFor="let img of news.imgs">
+      <ion-col [sizeSm]="3" [sizeXs]="12" *ngFor="let img of news.imgs.slice(1)">
         <ion-card>
           <ion-card-content>
             <ion-img [src]="img" [alt]="img" (click)="openFullscreenImage(img)"></ion-img>

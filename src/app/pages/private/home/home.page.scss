@@ -11,6 +11,7 @@ ion-grid {
 .news-card {
   margin-bottom: 0;
   transition: all 0.2s ease-out;
+  border-radius: 0px;
   cursor: pointer;
   width: 100%;
   height: 100%;
@@ -27,7 +28,7 @@ ion-grid {
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: pre-line;      
+      white-space: pre-line;
     }
     ion-row {
       width: 90%;

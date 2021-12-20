@@ -3,7 +3,7 @@
     <ion-icon name="close-outline" slot="end" size="large" (click)="closeModal()"></ion-icon>
   </ion-toolbar>
   <ion-grid>
-    <h2 class="ion-no-margin">Inserisci i tuoi dati</h2>
+    <h2 class="ion-no-margin ion-padding-bottom">Inserisci i tuoi dati per partecipare</h2>
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
       <ion-input [(ngModel)]="data.nome"></ion-input>
@@ -20,7 +20,8 @@
       <ion-label position="stacked">Numero di telefono</ion-label>
       <ion-input type="tel" [(ngModel)]="data.telefono"></ion-input>
     </ion-item>
-    <ion-button expand="block" class="ion-padding" [disabled]="checkDisabled()" (click)="sendEmail()">Partecipa
+    <ion-button expand="block" class="ion-no-padding ion-margin-top" [disabled]="checkDisabled()" (click)="sendEmail()">
+      Partecipa
     </ion-button>
   </ion-grid>
 </ion-content>
