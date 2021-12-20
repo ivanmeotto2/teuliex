@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="retrieveNews($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-row class="ion-justify-content-center ion-margin">
     <ion-col [sizeXs]="12" [sizeSm]="5" *ngFor="let notizia of news" class="ion-margin">
       <ion-card class="news-card">

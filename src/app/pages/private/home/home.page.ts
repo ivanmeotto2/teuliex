@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonInfiniteScroll, LoadingController, ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, IonRefresher, LoadingController, ModalController } from '@ionic/angular';
 import { News } from 'src/app/shared/interfaces/news';
 import { NewsService } from 'src/app/shared/services/news.service';
 import { BehaviorsService } from 'src/app/shared/services/filters.service';
@@ -37,13 +37,22 @@ export class HomePage {
   }
 
   async ionViewWillEnter() {
-    this.loading = await this.loadingCtrl.create({
-      message: 'Retrieving news. Please wait...',
-    });
-    await this.loading.present();
+    await this.retrieveNews();
+  }
+
+  async retrieveNews(refresher?: any) {
+    this.news = [];
+    this.pageNumber = 1;
+    if (!refresher) {
+      this.loading = await this.loadingCtrl.create({
+        message: 'Retrieving news. Please wait...',
+      });
+      await this.loading.present();
+    }
     this.news = await this.newsService.getAllNews(this.pageNumber);
     this.news = this.filterNews(this.news);
-    await this.loading.dismiss();
+    if (refresher) await refresher.target.complete();
+    else await this.loading.dismiss();
   }
 
   openNews(id: string) {
