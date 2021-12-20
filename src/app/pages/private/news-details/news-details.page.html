@@ -25,7 +25,7 @@
   </ion-grid>
   <ion-grid>
     <ion-row class="img-row">
-      <ion-col [sizeSm]="3" [sizeXs]="12" *ngFor="let img of news.imgs">
+      <ion-col [sizeSm]="3" [sizeXs]="12" *ngFor="let img of news.imgs.slice(1)">
         <ion-card>
           <ion-card-content>
             <ion-img [src]="img" [alt]="img" (click)="openFullscreenImage(img)"></ion-img>
