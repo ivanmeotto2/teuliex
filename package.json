@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "npm version patch && ionic build && firebase deploy"
+    "deploy": "npm version patch && ionic build && firebase deploy",
+    "build:android": "adb devices && ionic capacitor build android && ionic capacitor run android"
   },
   "private": true,
   "dependencies": {

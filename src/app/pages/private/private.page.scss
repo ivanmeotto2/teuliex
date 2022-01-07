@@ -17,3 +17,9 @@ app-side-menu {
   margin-top: auto;
   margin-bottom: auto;
 }
+
+ion-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

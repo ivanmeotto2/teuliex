@@ -5,13 +5,13 @@
       <ion-title>{{selectedTab}}
       </ion-title>
     </ion-row>
-    <ion-img src="./../../../assets/icon/favicon.ico" class="logo" slot="end"></ion-img>
     <ion-button slot="end" [hidden]="user.id" color="secondary" [routerLink]="['/auth/login']"
       routerDirection="forward">
       ACCEDI
     </ion-button>
     <ion-icon name="options-outline" class="ion-margin-end" *ngIf="selectedTab == 'Trova ex allievo'" slot="end"
       size="large" (click)="openFilters()"></ion-icon>
+    <ion-img src="./../../../assets/icon/favicon.ico" class="logo" slot="end"></ion-img>
   </ion-toolbar>
 </ion-header>
 
