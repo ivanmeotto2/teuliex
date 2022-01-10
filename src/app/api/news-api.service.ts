@@ -12,7 +12,7 @@ export class NewsApiService {
   getAllNews(page: number) {
     const today = new Date();
     return this.http.get(`${OLD_API_BASE}/news?sortBy=dataPubblicazione&page=${page}&limit=10`).toPromise();
-    // return this.http.get(`${API_BASE}/news?date_after=${formatDate(today, 'yyyy-MM-dd', 'en-US')}`).toPromise();
+    //return this.http.get(`${API_BASE}/news?date_after=${formatDate(today, 'yyyy-MM-dd', 'en-US')}`).toPromise();
   }
 
   getOneNews(id: string) {
